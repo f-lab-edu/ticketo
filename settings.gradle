@@ -1,0 +1,8 @@
+rootProject.name = 'ticketo'
+include 'api'
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
