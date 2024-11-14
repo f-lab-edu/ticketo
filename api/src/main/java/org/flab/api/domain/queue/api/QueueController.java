@@ -6,16 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/events/{eventId}/shows/{showId}/queue/{userId}")
+@RequestMapping("/api/events/{eventId}/shows/{showId}/queue")
 public class QueueController {
 
     @PostMapping()
-    public ResponseEntity<Void> addQueue(@PathVariable("eventId") long eventId, @PathVariable("showId") long showId, @PathVariable("userId") long userId) {
+    public ResponseEntity<Void> addQueue(@PathVariable("eventId") long eventId, @PathVariable("showId") long showId) {
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/status")
-    public ResponseEntity<QueueStatusResponse> getQueueStatus(@PathVariable("eventId") long eventId, @PathVariable("showId") long showId, @PathVariable("userId") long userId) {
+    public ResponseEntity<QueueStatusResponse> getQueueStatus(@PathVariable("eventId") long eventId, @PathVariable("showId") long showId) {
         QueueStatusResponse response = QueueStatusDummyGenerator.generateQueueStatusDummyResponse();
         return ResponseEntity.ok(response);
     }
