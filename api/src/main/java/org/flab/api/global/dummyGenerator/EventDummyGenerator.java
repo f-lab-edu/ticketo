@@ -14,14 +14,14 @@ public class EventDummyGenerator {
 
         DiscountPolicyResponse discount1 = new DiscountPolicyResponse(1, "재관람 할인(1인1매)20%", 20, 136000);
         DiscountPolicyResponse discount2 = new DiscountPolicyResponse(2, "청소년 할인(본인만)20%", 20, 136000);
-        discount1.setPrice(170000);
-        discount2.setPrice(170000);
+        discount1.setDiscountPrice(170000);
+        discount2.setDiscountPrice(170000);
         SeatGradeResponse grade1 = new SeatGradeResponse(1, "VIP석", 1700000, List.of(discount1, discount2));
 
         DiscountPolicyResponse discount3 = new DiscountPolicyResponse(1, "재관람 할인(1인1매)20%", 20, 136000);
         DiscountPolicyResponse discount4 = new DiscountPolicyResponse(2, "청소년 할인(본인만)20%", 20, 136000);
-        discount3.setPrice(150000);
-        discount4.setPrice(150000);
+        discount3.setDiscountPrice(150000);
+        discount4.setDiscountPrice(150000);
         SeatGradeResponse grade2 = new SeatGradeResponse(2, "S석", 1500000, List.of(discount3, discount4));
 
         return EventPriceListResponse.builder()
@@ -31,8 +31,11 @@ public class EventDummyGenerator {
     }
 
     public static EventResponse generateDummyEventResponse() {
-
         EventImageResponse image = new EventImageResponse("//ticketimage.interpark.com/Play/image/large/24/24013437_p.gif", "//ticketimage.interpark.comrz/image/play/goods/poster/24/24013437_p_s.jpg");
+        EventPlaceResponse place = new EventPlaceResponse(1, "고양종합운동장 주경기장");
+        EventRegionResponse region = new EventRegionResponse(1, "경기");
+        SubCategoryResponse sub = new SubCategoryResponse(1, "라이센스");
+        EventCategoryResponse category = new EventCategoryResponse(1, "콘서트", sub);
         EventCastResponse cast1 = new EventCastResponse(1, "찰리", 4528, "김호영", "\"http://ticketimage.interpark.com/PlayDictionary/DATA/PlayDic/PlayDicUpload/040004/07/01/0400040701_4522_021034.gif");
         EventCastResponse cast2 = new EventCastResponse(1, "찰리", 30078, "신재범", "\"http://ticketimage.interpark.com/PlayDictionary/DATA/PlayDic/PlayDicUpload/040004/07/01/0400040701_4522_021034.gif");
 
@@ -43,11 +46,15 @@ public class EventDummyGenerator {
                 .eventEndDate("20250323")
                 .runningTime(155)
                 .interMissionTime(20)
+                .description("")
                 .reservationStartDateTime("202412311700")
                 .reservationEndDateTime("202503230000")
                 .hasPreReservation(true)
                 .preReservationStartDateTime("202412301700")
                 .preReservationEndDateTime("202412310000")
+                .place(place)
+                .region(region)
+                .category(category)
                 .image(image)
                 .casts(List.of(cast1, cast2))
                 .bizId(1234)

@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class ShowResponse {
-    private long id;
+    private long showId;
     private String showDateTime;
     private String reservationStartDateTime;
     private String reservationEndDateTime;

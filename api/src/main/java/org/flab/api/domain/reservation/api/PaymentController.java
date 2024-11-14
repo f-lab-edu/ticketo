@@ -1,5 +1,7 @@
 package org.flab.api.domain.reservation.api;
 
+import org.flab.api.domain.reservation.dto.response.ReservationResponse;
+import org.flab.api.global.dummyGenerator.ReservationDummyGenerator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +15,8 @@ public class PaymentController {
     }
 
     @PatchMapping("/done")
-    public ResponseEntity<Void> donePayment(@PathVariable("reservationId") String reservationId) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ReservationResponse> donePayment(@PathVariable("reservationId") String reservationId) {
+        ReservationResponse response = ReservationDummyGenerator.generateReservationResponse();
+        return ResponseEntity.ok(response);
     }
 }

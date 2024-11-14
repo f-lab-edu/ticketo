@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.*;
 public class SeatController {
 
     @GetMapping
-    public ResponseEntity<SeatListResponse> getSeatList(@PathVariable String eventId) {
+    public ResponseEntity<SeatListResponse> getSeatList(@RequestParam(value = "areaId", required = false) Long areaId, @PathVariable String eventId) {
         SeatListResponse response = SeatDummyGenerator.generateSeatListDummy();
+        if(areaId != null) {
+            response = SeatDummyGenerator.generateSeatListInAreaDummy("A3");
+        }
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/reservation")
-    public ResponseEntity<Void> reserveSeat(@RequestParam(value = "areaId", required = false) Long areaId, @RequestBody SeatReservationRequest requestBody, @PathVariable String eventId) {
+    public ResponseEntity<Void> reserveSeat(@RequestBody SeatReservationRequest requestBody, @PathVariable String eventId) {
         return ResponseEntity.ok().build();
     }
 

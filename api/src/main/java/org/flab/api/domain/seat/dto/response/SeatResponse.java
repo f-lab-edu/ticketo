@@ -8,10 +8,10 @@ import org.flab.api.domain.seat.domain.SeatStatus;
 @Getter
 public class SeatResponse {
     private String seatCode;
-    private SeatStatus status;
+    private SeatStatus seatStatus;
 
     @Override
     public String toString() {
-        return "SeatResponse{" + "seatId='" + seatCode + '\'' + ", status=" + status + '}';
+        return "SeatResponse{" + "seatId='" + seatCode + '\'' + ", status=" + seatStatus + '}';
     }
 }

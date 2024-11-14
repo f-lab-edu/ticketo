@@ -1,9 +1,11 @@
 package org.flab.api.domain.reservation.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
+@Getter
 @Setter
 public class ReservationSeatRequest {
     private String seatCode;

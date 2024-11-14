@@ -24,6 +24,14 @@ public class SeatDummyGenerator {
         return new SeatListResponse(123, List.of(area1, area2));
     }
 
+    public static SeatListResponse generateSeatListInAreaDummy(String areaName) {
+        RowResponse row1 = generateRowDummy(areaName, 1, 15);
+        RowResponse row2 = generateRowDummy(areaName, 2, 17);
+        RowResponse row3 = generateRowDummy(areaName, 2, 17);
+        AreaResponse area1 = new AreaResponse(1, areaName, 3, List.of(row1, row2, row3));
+        return new SeatListResponse(123, List.of(area1));
+    }
+
     private static RowResponse generateRowDummy(String areaName, int rowIndex, int rowCount) {
         List<SeatResponse> seatList = new ArrayList<>();
         for(int i=1; i < rowCount; i++) {

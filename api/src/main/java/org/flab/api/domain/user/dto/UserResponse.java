@@ -12,7 +12,7 @@ public class UserResponse {
     private long userId;
     private String loginId;
     private String userName;
-    private String phonNumber;
+    private String phoneNumber;
     private String email;
     private String address;
     private UserGrade grade;

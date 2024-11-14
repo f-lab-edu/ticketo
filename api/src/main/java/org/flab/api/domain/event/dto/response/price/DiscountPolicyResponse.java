@@ -9,10 +9,10 @@ public class DiscountPolicyResponse {
     private long discountPolicyId;
     private String discountPolicyName;
     private int discountRate;
-    private int price;
+    private int discountPrice;
 
-    public void setPrice(int basicPrice) {
+    public void setDiscountPrice(int basicPrice) {
         double discountMultiplier = (100.0 - discountRate) / 100.0;
-        this.price = (int) Math.round(basicPrice * discountMultiplier);
+        this.discountPrice = (int) Math.round(basicPrice * discountMultiplier);
     }
 }

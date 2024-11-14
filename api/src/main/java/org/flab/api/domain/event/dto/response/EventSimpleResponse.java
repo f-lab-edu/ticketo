@@ -6,8 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class EventSimpleResponse {
-    private long id;
-    private String name;
+    private long eventId;
+    private String eventName;
     private String eventStartDate;
     private String eventEndDate;
     private EventCategoryResponse category;

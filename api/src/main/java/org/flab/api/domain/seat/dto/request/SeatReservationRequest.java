@@ -1,14 +1,15 @@
 package org.flab.api.domain.seat.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Setter
-public class SeatReservationRequest
-{
+@Getter
+public class SeatReservationRequest {
     private long showId;
     private List<SeatRequest> seats;
 

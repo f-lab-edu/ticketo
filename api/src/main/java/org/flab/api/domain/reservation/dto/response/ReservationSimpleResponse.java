@@ -10,7 +10,7 @@ public class ReservationSimpleResponse {
     private long reservationId;
     private String[] orderIds;
     private int ticketCount;
-    private ReservationStatus status;
+    private ReservationStatus reservationStatus;
     private long eventId;
     private String eventName;
     private String showDateTime;
