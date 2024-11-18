@@ -37,7 +37,7 @@ public class ReservationController {
     @PostMapping("/waiting")
     public ResponseEntity<ReservationResponse> createReservationWaiting(@RequestBody ReservationCreateRequest reservationRequest) {
         ReservationResponse response = ReservationDummyGenerator.generateReservationWaitingResponse();
-        return ResponseEntity.ok(response);
+        return  ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{reservationId}")

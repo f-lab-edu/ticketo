@@ -1,14 +1,7 @@
 package org.flab.api.global.dummyGenerator;
 
 import org.flab.api.domain.category.dto.SubCategoryResponse;
-import org.flab.api.domain.event.dto.event.response.EventCastResponse;
-import org.flab.api.domain.event.dto.event.response.EventCategoryResponse;
-import org.flab.api.domain.event.dto.event.response.EventImageResponse;
-import org.flab.api.domain.event.dto.event.response.EventListResponse;
-import org.flab.api.domain.event.dto.event.response.EventPlaceResponse;
-import org.flab.api.domain.event.dto.event.response.EventRegionResponse;
-import org.flab.api.domain.event.dto.event.response.EventResponse;
-import org.flab.api.domain.event.dto.event.response.EventSimpleResponse;
+import org.flab.api.domain.event.dto.event.response.*;
 import org.flab.api.domain.event.dto.price.DiscountPolicyResponse;
 import org.flab.api.domain.event.dto.price.EventPriceListResponse;
 import org.flab.api.domain.event.dto.price.SeatGradeResponse;
