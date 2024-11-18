@@ -1,9 +1,9 @@
 package org.flab.api.controller;
 
 import org.flab.api.BaseIntegrationTest;
-import org.flab.api.domain.event.domain.EventType;
-import org.flab.api.domain.event.dto.request.EventRequestParams;
-import org.flab.api.domain.event.dto.request.MembershipRequest;
+import org.flab.api.domain.category.domain.CategoryType;
+import org.flab.api.domain.event.dto.event.request.EventRequestParams;
+import org.flab.api.domain.event.dto.event.request.MembershipRequest;
 import org.flab.api.global.common.ListRequestParams;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ public class EventControllerTest extends BaseIntegrationTest {
         params.setSearchOption("name");
         params.setSearchValue("킹키");
         EventRequestParams eventParams = new EventRequestParams();
-        eventParams.setCategory(EventType.CONCERT.toString());
+        eventParams.setCategoryType(CategoryType.CONCERT);
         eventParams.setRegionId(1234L);
 
         // when
@@ -164,7 +164,7 @@ public class EventControllerTest extends BaseIntegrationTest {
         paramMap.add("pageSize", String.valueOf(params.getPageSize()));
         paramMap.add("searchOption", params.getSearchOption());
         paramMap.add("searchValue", params.getSearchValue());
-        paramMap.add("category", eventParams.getCategory());
+        paramMap.add("category", eventParams.getCategoryType().toString());
         paramMap.add("regionId", String.valueOf(eventParams.getRegionId()));
         return paramMap;
     }

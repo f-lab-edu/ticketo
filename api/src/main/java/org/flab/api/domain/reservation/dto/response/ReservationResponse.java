@@ -10,11 +10,11 @@ import java.util.List;
 @Getter
 public class ReservationResponse {
     private String username;
-    private ReservationStatus reservationStatus;
     private boolean canCancel;
-    private ReservationShowResponse show;
+    private ReservationStatus reservationStatus;
     private int ordersTotalCount;
     private List<ReservationOrderResponse> orders;
+    private ReservationShowResponse show;
     private ReservationPaymentResponse payment;
     private ReservationDeliveryResponse delivery;
 

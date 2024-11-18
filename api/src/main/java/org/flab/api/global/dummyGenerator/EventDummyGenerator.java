@@ -1,10 +1,10 @@
 package org.flab.api.global.dummyGenerator;
 
 import org.flab.api.domain.category.dto.SubCategoryResponse;
-import org.flab.api.domain.event.dto.response.*;
-import org.flab.api.domain.event.dto.response.price.DiscountPolicyResponse;
-import org.flab.api.domain.event.dto.response.price.EventPriceListResponse;
-import org.flab.api.domain.event.dto.response.price.SeatGradeResponse;
+import org.flab.api.domain.event.dto.event.response.*;
+import org.flab.api.domain.event.dto.price.DiscountPolicyResponse;
+import org.flab.api.domain.event.dto.price.EventPriceListResponse;
+import org.flab.api.domain.event.dto.price.SeatGradeResponse;
 
 import java.util.List;
 
@@ -24,10 +24,7 @@ public class EventDummyGenerator {
         discount4.setDiscountPrice(150000);
         SeatGradeResponse grade2 = new SeatGradeResponse(2, "S석", 1500000, List.of(discount3, discount4));
 
-        return EventPriceListResponse.builder()
-                .totalCount(2)
-                .grades(List.of(grade1, grade2))
-                .build();
+        return new EventPriceListResponse(2, List.of(grade1, grade2));
     }
 
     public static EventResponse generateDummyEventResponse() {
