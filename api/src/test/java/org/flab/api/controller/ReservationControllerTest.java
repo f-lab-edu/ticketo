@@ -1,7 +1,11 @@
 package org.flab.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.flab.api.BaseIntegrationTest;
+import org.flab.api.domain.event.dto.seat.request.SeatRequest;
+import org.flab.api.domain.event.dto.seat.request.SeatSelectRequest;
+import org.flab.api.domain.reservation.domain.ReservationStatus;
 import org.flab.api.domain.event.dto.seat.request.SeatRequest;
 import org.flab.api.domain.event.dto.seat.request.SeatSelectRequest;
 import org.flab.api.domain.reservation.domain.ReservationStatus;
@@ -31,7 +35,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 public class ReservationControllerTest extends BaseIntegrationTest {
 
     @Autowired
