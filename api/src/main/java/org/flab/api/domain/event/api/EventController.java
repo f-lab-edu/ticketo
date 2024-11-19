@@ -3,12 +3,19 @@ package org.flab.api.domain.event.api;
 import org.flab.api.domain.event.dto.event.request.EventRequestParams;
 import org.flab.api.domain.event.dto.event.request.MembershipRequest;
 import org.flab.api.domain.event.dto.event.response.EventListResponse;
-import org.flab.api.domain.event.dto.price.EventPriceListResponse;
 import org.flab.api.domain.event.dto.event.response.EventResponse;
+import org.flab.api.domain.event.dto.price.EventPriceListResponse;
 import org.flab.api.global.common.ListRequestParams;
 import org.flab.api.global.dummyGenerator.EventDummyGenerator;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/api/events")
