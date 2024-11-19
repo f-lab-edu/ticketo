@@ -1,5 +1,6 @@
 package org.flab.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.flab.api.BaseIntegrationTest;
 import org.flab.api.domain.event.dto.seat.request.SeatRequest;
 import org.flab.api.domain.event.dto.seat.request.SeatSelectRequest;
@@ -22,10 +23,14 @@ import java.util.Objects;
 
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.isA;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ReservationControllerTest extends BaseIntegrationTest {
 
@@ -107,7 +112,7 @@ public class ReservationControllerTest extends BaseIntegrationTest {
 
     @Test
     @DisplayName("예매 정보 생성 요청_testRestTemplate")
-    public void createReservationByTestRestTemplate() {
+    public void createReservationByTestRestTemplate() throws JsonProcessingException {
         // given
         List<ReservationSeatRequest> seatList = new ArrayList<>();
         seatList.add(new ReservationSeatRequest("A1-1-1", 1, "VIP석", 1, "일반", 1700000, 2000));
@@ -126,6 +131,9 @@ public class ReservationControllerTest extends BaseIntegrationTest {
 
         assertEquals(response.getBody().getOrders().size(), 2);
         assertEquals(response.getBody().getReservationStatus(), ReservationStatus.RESERVED);
+
+        String jsonString = objectMapper.writeValueAsString(response.getBody());
+        objectMapper.readValue(jsonString, ReservationResponse.class);
     }
 
     @Test
@@ -183,7 +191,7 @@ public class ReservationControllerTest extends BaseIntegrationTest {
 
     @Test
     @DisplayName("예매 대기 생성 요청_testRestTemplate")
-    public void createReservationWaitingByTestRestTemplate() {
+    public void createReservationWaitingByTestRestTemplate() throws JsonProcessingException {
         // given
         List<ReservationSeatRequest> seatList = new ArrayList<>();
         seatList.add(new ReservationSeatRequest("A1-1-1", 1, "VIP석", 1, "일반", 1700000, 2000));
@@ -202,6 +210,9 @@ public class ReservationControllerTest extends BaseIntegrationTest {
 
         assertEquals(response.getBody().getOrders().size(), 2);
         assertEquals(response.getBody().getReservationStatus(), ReservationStatus.HOLD);
+
+        String jsonString = objectMapper.writeValueAsString(response.getBody());
+        objectMapper.readValue(jsonString, ReservationResponse.class);
     }
 
     @Test
