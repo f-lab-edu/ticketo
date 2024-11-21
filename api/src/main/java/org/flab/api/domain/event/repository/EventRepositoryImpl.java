@@ -3,10 +3,6 @@ package org.flab.api.domain.event.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.Event;
-import org.flab.api.domain.event.domain.EventSearchCondition;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
@@ -19,8 +15,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    @Override
-    public Optional<Event> findEventWithCategoryAndParentById(Long eventId) {
+    public Optional<Event> findEventWithRelationEntity(Long eventId) {
         return Optional.ofNullable(
                 queryFactory.select(event)
                         .distinct()
