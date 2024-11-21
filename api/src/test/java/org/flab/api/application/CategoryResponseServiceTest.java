@@ -10,6 +10,7 @@ import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
@@ -26,11 +27,13 @@ public class CategoryResponseServiceTest extends BaseUnitTest {
     @Mock
     private CategoryRepository categoryRepository;
 
+    @InjectMocks
+    private CategoryResponseService sut;
+
     @Test
     @DisplayName("카테고리 목록 조회")
     public void getCategoryList() {
         // given
-        CategoryResponseService sut = new CategoryResponseService(categoryRepository);
         List<Category> categoryList = new ArrayList<>();
         categoryList.add(Category.builder().id(1L).name("콘서트").parent(null).build());
         categoryList.add(Category.builder().id(2L).name("뮤지컬").parent(null).build());
@@ -52,7 +55,6 @@ public class CategoryResponseServiceTest extends BaseUnitTest {
     @DisplayName("카테고리 목록 조회 - 상위 카테고리가 존재하지 않는 경우")
     public void getCategoryListWithException() {
         // given
-        CategoryResponseService sut = new CategoryResponseService(categoryRepository);
         List<Category> categoryList = new ArrayList<>();
         categoryList.add(Category.builder().id(1L).name("콘서트").parent(null).build());
         categoryList.add(Category.builder().id(3L).name("내한공연").parent(categoryList.get(0)).build());

@@ -22,7 +22,7 @@ public class EventResponseService {
     private final CastResponseService castResponseService;
 
     public EventResponse getEventResponse(Long eventId) {
-        Optional<Event> event = eventRepository.findEventWithCategoryAndParentById(eventId);
+        Optional<Event> event = eventRepository.findEventWithRelationEntity(eventId);
         if(event.isEmpty()) {
             throw new CustomException(ErrorCode.EVENT_NOT_FOUND);
         }
