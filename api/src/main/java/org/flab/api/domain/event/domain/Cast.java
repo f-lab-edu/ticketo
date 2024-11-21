@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import org.flab.api.domain.event.dto.event.response.CastResponse;
 import org.flab.api.global.common.Auditable;
 
 @Getter
@@ -31,5 +32,9 @@ public class Cast extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_id")
     private Character character;
+
+    public CastResponse toResponse() {
+        return new CastResponse(id, name, image);
+    }
 
 }

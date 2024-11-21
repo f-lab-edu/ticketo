@@ -11,7 +11,7 @@ public class EventSimpleResponse {
     private String eventStartDate;
     private String eventEndDate;
     private EventCategoryResponse category;
-    private EventPlaceResponse place;
-    private EventRegionResponse region;
+    private PlaceResponse place;
+    private RegionResponse region;
     private EventImageResponse image;
 }

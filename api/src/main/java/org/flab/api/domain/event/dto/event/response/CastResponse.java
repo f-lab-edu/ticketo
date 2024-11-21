@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class EventPlaceResponse {
-    private long placeId;
-    private String placeName;
+public class CastResponse {
+    private Long castId;
+    private String castName;
+    private String castImage;
 }

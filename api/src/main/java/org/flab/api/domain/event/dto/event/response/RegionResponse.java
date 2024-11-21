@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class EventRegionResponse {
+public class RegionResponse {
     private long regionId;
     private String regionName;
 }

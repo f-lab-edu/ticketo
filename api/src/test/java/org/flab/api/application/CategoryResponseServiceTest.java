@@ -35,10 +35,10 @@ public class CategoryResponseServiceTest extends BaseUnitTest {
     public void getCategoryList() {
         // given
         List<Category> categoryList = new ArrayList<>();
-        categoryList.add(Category.builder().id(1L).name("콘서트").parent(null).build());
-        categoryList.add(Category.builder().id(2L).name("뮤지컬").parent(null).build());
-        categoryList.add(Category.builder().id(3L).name("내한공연").parent(categoryList.get(0)).build());
-        categoryList.add(Category.builder().id(4L).name("창작뮤지컬").parent(categoryList.get(1)).build());
+        categoryList.add(new Category(1L, "콘서트", null));
+        categoryList.add(new Category(2L, "뮤지컬", null));
+        categoryList.add(new Category(3L, "내한공연", categoryList.get(0)));
+        categoryList.add(new Category(4L, "창작뮤지컬", categoryList.get(1)));
         given(categoryRepository.findAll()).willReturn(categoryList);
 
         // when
@@ -56,9 +56,9 @@ public class CategoryResponseServiceTest extends BaseUnitTest {
     public void getCategoryListWithException() {
         // given
         List<Category> categoryList = new ArrayList<>();
-        categoryList.add(Category.builder().id(1L).name("콘서트").parent(null).build());
-        categoryList.add(Category.builder().id(3L).name("내한공연").parent(categoryList.get(0)).build());
-        categoryList.add(Category.builder().id(4L).name("창작뮤지컬").parent(categoryList.get(1)).build());
+        categoryList.add(new Category(1L, "콘서트", null));
+        categoryList.add(new Category(3L, "내한공연", categoryList.get(0)));
+        categoryList.add(new Category(4L, "창작뮤지컬", categoryList.get(1)));
         given(categoryRepository.findAll()).willReturn(categoryList);
 
         // when
