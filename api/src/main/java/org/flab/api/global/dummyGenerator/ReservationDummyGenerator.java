@@ -30,7 +30,7 @@ public class ReservationDummyGenerator {
         List<ReservationOrderResponse> orders = new ArrayList<>();
         orders.add(new ReservationOrderResponse(123, "A1-1-1", 1, "VIP석", 1, "일반", 1700000, 2000));
         orders.add(new ReservationOrderResponse(124, "A1-1-2", 1, "VIP석", 1, "일반", 1700000, 2000));
-        ReservationPaymentResponse payment = new ReservationPaymentResponse(1, PaymentStatus.PENDING, PaymentMethod.BANK_TRANSFER, 3200, 227200, ZonedDateTime.now());
+        ReservationPaymentResponse payment = new ReservationPaymentResponse(1, PaymentStatus.WAITING, PaymentMethod.BANK_TRANSFER, 3200, 227200, ZonedDateTime.now());
         ReservationDeliveryResponse delivery = new ReservationDeliveryResponse(1, "홍길동", "서울특별시 관악구", "010-1234-1234", DeliveryStatus.DONE);
         return new ReservationResponse("홍길동", true, ReservationStatus.RESERVED, orders.size(), orders, show, payment, delivery);
     }
@@ -40,7 +40,7 @@ public class ReservationDummyGenerator {
         List<ReservationOrderResponse> orders = new ArrayList<>();
         orders.add(new ReservationOrderResponse(123, "A1-1-1", 1, "VIP석", 1, "일반", 1700000, 2000));
         orders.add(new ReservationOrderResponse(124, "A1-1-2", 1, "VIP석", 1, "일반", 1700000, 2000));
-        ReservationPaymentResponse payment = new ReservationPaymentResponse(1, PaymentStatus.PENDING, PaymentMethod.BANK_TRANSFER, 3200, 227200, ZonedDateTime.now());
+        ReservationPaymentResponse payment = new ReservationPaymentResponse(1, PaymentStatus.WAITING, PaymentMethod.BANK_TRANSFER, 3200, 227200, ZonedDateTime.now());
         ReservationDeliveryResponse delivery = new ReservationDeliveryResponse(1, "홍길동", "서울특별시 관악구", "010-1234-1234", DeliveryStatus.DONE);
         return new ReservationResponse("홍길동", true, ReservationStatus.HOLD, orders.size(), orders, show, payment, delivery);
     }
