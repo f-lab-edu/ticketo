@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly=true)
-public class CategoryService {
+public class CategoryResponseService {
 
     private final CategoryRepository categoryRepository;
 
@@ -29,21 +29,26 @@ public class CategoryService {
 
     private List<CategoryResponse> getCategoryResponseList() {
         List<Category> categoryList = categoryRepository.findAll();
+        Map<Long, CategoryResponse> topCategoryResponseMap = getTopCategoryMap(categoryList);
+        this.addSubCategoryResponse(categoryList, topCategoryResponseMap);
+        return new ArrayList<>(topCategoryResponseMap.values());
+    }
 
-        Map<Long, CategoryResponse> categoryMap = categoryList.stream()
-                .filter(category -> category.getParentId() == null)
+    private Map<Long, CategoryResponse> getTopCategoryMap(List<Category> categoryList) {
+        return categoryList.stream()
+                .filter(Category::isTopCategory)
                 .collect(Collectors.toMap(Category::getId, Category::toResponse));
+    }
 
+    private void addSubCategoryResponse(List<Category> categoryList, Map<Long, CategoryResponse> categoryMap) {
         categoryList.stream()
-                .filter(category -> category.getParentId() != null)
+                .filter(category -> !category.isTopCategory())
                 .forEach(category -> {
-                    CategoryResponse parent = categoryMap.get(category.getParentId());
+                    CategoryResponse parent = categoryMap.get(category.getParent().getId());
                     if (parent == null) {
-                        throw new CustomException(ErrorCode.TOP_CATEGORY_DOES_NOT_EXIST);
+                        throw new CustomException(ErrorCode.TOP_CATEGORY_NOT_FOUND);
                     }
                     parent.getSubCategories().add(category.toSubCategoryResponse());
                 });
-
-        return new ArrayList<>(categoryMap.values());
     }
 }

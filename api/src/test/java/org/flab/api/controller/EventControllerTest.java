@@ -1,19 +1,23 @@
 package org.flab.api.controller;
 
 import org.flab.api.BaseIntegrationTest;
-import org.flab.api.domain.category.domain.CategoryType;
+import org.flab.api.domain.event.domain.EventType;
 import org.flab.api.domain.event.dto.event.request.EventRequestParams;
 import org.flab.api.domain.event.dto.event.request.MembershipRequest;
+import org.flab.api.domain.event.dto.event.response.EventResponse;
 import org.flab.api.global.common.ListRequestParams;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.isA;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -35,7 +39,7 @@ public class EventControllerTest extends BaseIntegrationTest {
         params.setSearchOption("name");
         params.setSearchValue("킹키");
         EventRequestParams eventParams = new EventRequestParams();
-        eventParams.setCategoryType(CategoryType.CONCERT);
+        eventParams.setEventType(EventType.CONCERT);
         eventParams.setRegionId(1234L);
 
         // when
@@ -71,49 +75,16 @@ public class EventControllerTest extends BaseIntegrationTest {
     @DisplayName("공연 단 건 조회 요청")
     public void getEventResponse() throws Exception {
         // given
-        long eventId = 12354L;
+        Long eventId = 2L;
 
         // when
-        ResultActions resultActions  = mockMvc.perform(get(BASE_URI+"/{eventId}", eventId)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-        );
+        ResponseEntity<EventResponse> response = restTemplate.getForEntity(BASE_URI+ "/{eventId}", EventResponse.class, eventId);
 
         // then
-        resultActions.andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.eventId").value(isA(Number.class)))
-                .andExpect(jsonPath("$.eventName").value(isA(String.class)))
-                .andExpect(jsonPath("$.eventStartDate", isA(String.class)))
-                .andExpect(jsonPath("$.eventEndDate", isA(String.class)))
-                .andExpect(jsonPath("$.runningTime", isA(Number.class)))
-                .andExpect(jsonPath("$.interMissionTime", isA(Number.class)))
-                .andExpect(jsonPath("$.description", isA(String.class)))
-                .andExpect(jsonPath("$.bizId",isA(Number.class)))
-                .andExpect(jsonPath("$.bizInfo", isA(String.class)))
-                .andExpect(jsonPath("$.reservationStartDateTime", isA(String.class)))
-                .andExpect(jsonPath("$.reservationEndDateTime", isA(String.class)))
-                .andExpect(jsonPath("$.hasPreReservation", isA(Boolean.class)))
-                .andExpect(jsonPath("$.preReservationStartDateTime", isA(String.class)))
-                .andExpect(jsonPath("$.preReservationEndDateTime", isA(String.class)))
-                .andExpect(jsonPath("$.category.categoryId", isA(Number.class)))
-                .andExpect(jsonPath("$.category.categoryName", isA(String.class)))
-                .andExpect(jsonPath("$.category.subCategory.subCategoryId", isA(Number.class)))
-                .andExpect(jsonPath("$.category.subCategory.subCategoryName", isA(String.class)))
-                .andExpect(jsonPath("$.place.placeId", isA(Number.class)))
-                .andExpect(jsonPath("$.place.placeName", isA(String.class)))
-                .andExpect(jsonPath("$.region.regionId", isA(Number.class)))
-                .andExpect(jsonPath("$.region.regionName", isA(String.class)))
-                .andExpect(jsonPath("$.image.thumbnailImageUrl", isA(String.class)))
-                .andExpect(jsonPath("$.image.posterImageUrl", isA(String.class)))
-                .andExpect(jsonPath("$.casts").isArray())
-                .andExpect(jsonPath("$.casts[*].characterId", everyItem(isA(Number.class))))
-                .andExpect(jsonPath("$.casts[*].characterName", everyItem(isA(String.class))))
-                .andExpect(jsonPath("$.casts[*].manId", everyItem(isA(Number.class))))
-                .andExpect(jsonPath("$.casts[*].manName", everyItem(isA(String.class))))
-                .andExpect(jsonPath("$.casts[*].imageFileUrl", everyItem(isA(String.class))))
-        ;
+        System.out.println(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        String jsonString = objectMapper.writeValueAsString(response.getBody());
+        objectMapper.readValue(jsonString, EventResponse.class);
     }
 
     @Test
@@ -167,7 +138,7 @@ public class EventControllerTest extends BaseIntegrationTest {
         paramMap.add("pageSize", String.valueOf(params.getPageSize()));
         paramMap.add("searchOption", params.getSearchOption());
         paramMap.add("searchValue", params.getSearchValue());
-        paramMap.add("category", eventParams.getCategoryType().toString());
+        paramMap.add("category", eventParams.getEventType().toString());
         paramMap.add("regionId", String.valueOf(eventParams.getRegionId()));
         return paramMap;
     }

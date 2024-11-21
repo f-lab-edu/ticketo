@@ -1,27 +1,28 @@
 package org.flab.api.domain.event.dto.event.response;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.flab.api.domain.event.domain.EventType;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
-@Builder
+@AllArgsConstructor
 @Getter
 public class EventResponse {
-    private long eventId;
+    private Long eventId;
     private String eventName;
-    private String eventStartDate;
-    private String eventEndDate;
-    private int runningTime;
-    private int interMissionTime;
+    private EventType eventType;
+    private ZonedDateTime eventStartDate;
+    private ZonedDateTime eventEndDate;
+    private Integer runningTime;
+    private Integer interMissionTime;
     private String description;
-    private long bizId;
-    private String bizInfo;
-    private String reservationStartDateTime;
-    private String reservationEndDateTime;
-    private boolean hasPreReservation;
-    private String preReservationStartDateTime;
-    private String preReservationEndDateTime;
+    private ZonedDateTime reservationStartDateTime;
+    private ZonedDateTime reservationEndDateTime;
+    private Boolean hasPreReservation;
+    private ZonedDateTime preReservationStartDateTime;
+    private ZonedDateTime preReservationEndDateTime;
     private EventCategoryResponse category;
     private EventPlaceResponse place;
     private EventRegionResponse region;
