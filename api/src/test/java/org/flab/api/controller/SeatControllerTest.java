@@ -1,18 +1,13 @@
 package org.flab.api.controller;
 
 import org.flab.api.BaseIntegrationTest;
-import org.flab.api.domain.seat.dto.request.SeatRequest;
-import org.flab.api.domain.seat.dto.request.SeatReservationRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.List;
-
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class SeatControllerTest extends BaseIntegrationTest {
@@ -79,23 +74,5 @@ public class SeatControllerTest extends BaseIntegrationTest {
                 .andExpect(jsonPath("$.areas[*].rows[*].seats").isArray())
                 .andExpect(jsonPath("$.areas[*].rows[*].seats[*].seatCode", everyItem(isA(String.class))))
                 .andExpect(jsonPath("$.areas[*].rows[*].seats[*].seatStatus", everyItem(isA(String.class))));
-    }
-
-    @Test
-    @DisplayName("좌석 선택 요청")
-    public void getSeatReservation() throws Exception {
-        // given
-        List<SeatRequest> seatList =  List.of(new SeatRequest("A1-1-2"), new SeatRequest("A1-1-3"));
-        SeatReservationRequest requestBody = new SeatReservationRequest(123123, seatList);
-
-        // when
-        ResultActions resultActions  = mockMvc.perform(post(BASE_URI + "/reservation", EVENT_ID)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(requestBody))
-        );
-
-        // then
-        resultActions.andExpect(status().isOk());
     }
 }

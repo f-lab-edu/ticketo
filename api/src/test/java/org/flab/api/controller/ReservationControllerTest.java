@@ -1,25 +1,61 @@
 package org.flab.api.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.flab.api.BaseIntegrationTest;
+import org.flab.api.domain.event.dto.seat.request.SeatRequest;
+import org.flab.api.domain.event.dto.seat.request.SeatSelectRequest;
+import org.flab.api.domain.reservation.domain.ReservationStatus;
 import org.flab.api.domain.reservation.dto.request.ReservationCreateRequest;
 import org.flab.api.domain.reservation.dto.request.ReservationSeatRequest;
+import org.flab.api.domain.reservation.dto.response.ReservationResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.isA;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ReservationControllerTest extends BaseIntegrationTest {
 
+    @Autowired
+    private TestRestTemplate restTemplate;
+
     private final String BASE_URI = "/api/reservations";
+
+    @Test
+    @DisplayName("좌석 선택 요청")
+    public void getSeatReservation() throws Exception {
+        // given
+        List<SeatRequest> seatList =  List.of(new SeatRequest("A1-1-2"), new SeatRequest("A1-1-3"));
+        SeatSelectRequest requestBody = new SeatSelectRequest(123123L, seatList);
+
+        // when
+        ResultActions resultActions  = mockMvc.perform(post(BASE_URI + "/seats")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(requestBody))
+        );
+
+        // then
+        resultActions.andExpect(status().isOk());
+    }
 
     @Test
     @DisplayName("예매 정보 생성 요청")
@@ -75,6 +111,32 @@ public class ReservationControllerTest extends BaseIntegrationTest {
     }
 
     @Test
+    @DisplayName("예매 정보 생성 요청_testRestTemplate")
+    public void createReservationByTestRestTemplate() throws JsonProcessingException {
+        // given
+        List<ReservationSeatRequest> seatList = new ArrayList<>();
+        seatList.add(new ReservationSeatRequest("A1-1-1", 1, "VIP석", 1, "일반", 1700000, 2000));
+        seatList.add(new ReservationSeatRequest("A1-1-2", 1, "VIP석", 1, "일반", 1700000, 2000));
+        ReservationCreateRequest requestBody = new ReservationCreateRequest(123L, 123L,  seatList);
+
+        // when
+        ResponseEntity<ReservationResponse> response = restTemplate.postForEntity(BASE_URI, requestBody, ReservationResponse.class);
+
+        // then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertFalse(Objects.requireNonNull(response.getBody()).getUsername().isEmpty());
+        assertNotNull(response.getBody().getDelivery());
+        assertNotNull(response.getBody().getPayment());
+        assertNotNull(response.getBody().getShow());
+
+        assertEquals(response.getBody().getOrders().size(), 2);
+        assertEquals(response.getBody().getReservationStatus(), ReservationStatus.RESERVED);
+
+        String jsonString = objectMapper.writeValueAsString(response.getBody());
+        objectMapper.readValue(jsonString, ReservationResponse.class);
+    }
+
+    @Test
     @DisplayName("예매 대기 생성 요청")
     public void createReservationWaiting() throws Exception {
         // given
@@ -125,6 +187,32 @@ public class ReservationControllerTest extends BaseIntegrationTest {
                 .andExpect(jsonPath("$.delivery.receiverName", isA(String.class)))
                 .andExpect(jsonPath("$.delivery.address", isA(String.class)))
                 .andExpect(jsonPath("$.delivery.phoneNumber", isA(String.class)));
+    }
+
+    @Test
+    @DisplayName("예매 대기 생성 요청_testRestTemplate")
+    public void createReservationWaitingByTestRestTemplate() throws JsonProcessingException {
+        // given
+        List<ReservationSeatRequest> seatList = new ArrayList<>();
+        seatList.add(new ReservationSeatRequest("A1-1-1", 1, "VIP석", 1, "일반", 1700000, 2000));
+        seatList.add(new ReservationSeatRequest("A1-1-2", 1, "VIP석", 1, "일반", 1700000, 2000));
+        ReservationCreateRequest requestBody = new ReservationCreateRequest(123L, 123L,  seatList);
+
+        // when
+        ResponseEntity<ReservationResponse> response = restTemplate.postForEntity(BASE_URI + "/waiting", requestBody, ReservationResponse.class);
+
+        // then
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertFalse(Objects.requireNonNull(response.getBody()).getUsername().isEmpty());
+        assertNotNull(response.getBody().getDelivery());
+        assertNotNull(response.getBody().getPayment());
+        assertNotNull(response.getBody().getShow());
+
+        assertEquals(response.getBody().getOrders().size(), 2);
+        assertEquals(response.getBody().getReservationStatus(), ReservationStatus.HOLD);
+
+        String jsonString = objectMapper.writeValueAsString(response.getBody());
+        objectMapper.readValue(jsonString, ReservationResponse.class);
     }
 
     @Test

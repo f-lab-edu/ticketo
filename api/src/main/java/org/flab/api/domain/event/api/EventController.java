@@ -1,10 +1,10 @@
 package org.flab.api.domain.event.api;
 
-import org.flab.api.domain.event.dto.request.EventRequestParams;
-import org.flab.api.domain.event.dto.request.MembershipRequest;
-import org.flab.api.domain.event.dto.response.EventListResponse;
-import org.flab.api.domain.event.dto.response.price.EventPriceListResponse;
-import org.flab.api.domain.event.dto.response.EventResponse;
+import org.flab.api.domain.event.dto.event.request.EventRequestParams;
+import org.flab.api.domain.event.dto.event.request.MembershipRequest;
+import org.flab.api.domain.event.dto.event.response.EventListResponse;
+import org.flab.api.domain.event.dto.price.EventPriceListResponse;
+import org.flab.api.domain.event.dto.event.response.EventResponse;
 import org.flab.api.global.common.ListRequestParams;
 import org.flab.api.global.dummyGenerator.EventDummyGenerator;
 import org.springframework.http.ResponseEntity;
