@@ -1,5 +1,8 @@
 package org.flab.api.global.exception;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,6 +52,24 @@ public class GlobalExceptionHandler {
             return new ErrorResponse(ErrorCode.INVALID_INPUT_VALUE, message);
         } else {
             return new ErrorResponse(errorCode);
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public class ErrorResponse {
+
+        private String code;
+        private String message;
+
+        public ErrorResponse(ErrorCode errorCode) {
+            this.code = errorCode.getCode();
+            this.message = errorCode.getMessage();
+        }
+
+        public ErrorResponse(ErrorCode errorCode, String message) {
+            this.code = errorCode.getCode();
+            this.message = message;
         }
     }
 }
