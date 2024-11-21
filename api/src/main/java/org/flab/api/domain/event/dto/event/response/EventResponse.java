@@ -24,8 +24,8 @@ public class EventResponse {
     private ZonedDateTime preReservationStartDateTime;
     private ZonedDateTime preReservationEndDateTime;
     private EventCategoryResponse category;
-    private EventPlaceResponse place;
-    private EventRegionResponse region;
+    private PlaceResponse place;
+    private RegionResponse region;
     private EventImageResponse image;
-    private List<EventCastResponse> casts;
+    private List<CharacterResponse> casts;
 }

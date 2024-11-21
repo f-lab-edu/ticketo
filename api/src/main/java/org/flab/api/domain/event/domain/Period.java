@@ -3,10 +3,12 @@ package org.flab.api.domain.event.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Embeddable
 public class Period {

@@ -6,11 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.flab.api.domain.event.dto.event.response.EventRegionResponse;
+import lombok.NoArgsConstructor;
+import org.flab.api.domain.event.dto.event.response.RegionResponse;
 import org.flab.api.global.common.Auditable;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Entity
 @Table(name = "region")
 public class Region extends Auditable  {
@@ -23,7 +28,7 @@ public class Region extends Auditable  {
     @Column(name="name")
     private String name;
 
-    public EventRegionResponse toEventRegionResponse() {
-        return new EventRegionResponse(id, name);
+    public RegionResponse toEventRegionResponse() {
+        return new RegionResponse(id, name);
     }
 }

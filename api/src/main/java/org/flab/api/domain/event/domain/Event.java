@@ -17,11 +17,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.flab.api.domain.category.domain.Category;
-import org.flab.api.domain.event.dto.event.response.EventCastResponse;
+import org.flab.api.domain.event.dto.event.response.CharacterResponse;
 import org.flab.api.domain.event.dto.event.response.EventResponse;
 import org.flab.api.global.common.Auditable;
 import org.hibernate.annotations.BatchSize;
@@ -30,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Entity
@@ -97,12 +95,11 @@ public class Event extends Auditable {
     @Embedded
     private Image image;
 
-    @Builder.Default
     @BatchSize(size = 100)
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     private List<Character> characterList = new ArrayList<>();
 
-    public EventResponse toResponse(List<EventCastResponse> castList) {
+    public EventResponse toResponse(List<CharacterResponse> castList) {
         return new EventResponse(id, name, type , eventPeriod.getStartDateTime(), eventPeriod.getEndDateTime()
                 , runningTime, intermissionTime, description, reservationPeriod.getStartDateTime(), reservationPeriod.getEndDateTime()
                 , hasPreReservation, preReservationStartDateTime.getStartDateTime(), preReservationStartDateTime.getStartDateTime()

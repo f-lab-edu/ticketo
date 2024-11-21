@@ -2,32 +2,24 @@ package org.flab.api.domain.event.application;
 
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.Event;
-import org.flab.api.domain.event.dto.event.response.EventCastResponse;
+import org.flab.api.domain.event.dto.event.response.CharacterResponse;
 import org.flab.api.domain.event.dto.event.response.EventResponse;
-import org.flab.api.domain.event.repository.EventRepository;
-import org.flab.api.global.exception.CustomException;
-import org.flab.api.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly=true)
 public class EventResponseService {
 
-    private final EventRepository eventRepository;
+    private final EventService eventService;
     private final CastResponseService castResponseService;
 
     public EventResponse getEventResponse(Long eventId) {
-        Optional<Event> event = eventRepository.findEventWithRelationEntity(eventId);
-        if(event.isEmpty()) {
-            throw new CustomException(ErrorCode.EVENT_NOT_FOUND);
-        }
-        List<EventCastResponse> castResponseList = castResponseService.getEventCastResponseList(eventId);
-        return event.get().toResponse(castResponseList);
+        Event event = eventService.getEvent(eventId);
+        List<CharacterResponse> castResponseList = castResponseService.getEventCastResponseListByCharacter(eventId);
+        return event.toResponse(castResponseList);
     }
-
 }
