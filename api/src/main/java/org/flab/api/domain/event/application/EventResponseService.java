@@ -22,9 +22,6 @@ public class EventResponseService {
     private final CastResponseService castResponseService;
 
     public EventResponse getEventResponse(Long eventId) {
-        System.out.println("eventResponseService");
-        List<Event> eventList = eventRepository.findAll();
-        System.out.println("eventList.size :" + eventList.size() );
         Optional<Event> event = eventRepository.findEventWithCategoryAndParentById(eventId);
         if(event.isEmpty()) {
             throw new CustomException(ErrorCode.EVENT_NOT_FOUND);

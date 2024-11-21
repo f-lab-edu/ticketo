@@ -75,13 +75,12 @@ public class EventControllerTest extends BaseIntegrationTest {
     @DisplayName("공연 단 건 조회 요청")
     public void getEventResponse() throws Exception {
         // given
-        Long eventId = 2L;
+        Long eventId = 1L;
 
         // when
         ResponseEntity<EventResponse> response = restTemplate.getForEntity(BASE_URI+ "/{eventId}", EventResponse.class, eventId);
 
         // then
-        System.out.println(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         String jsonString = objectMapper.writeValueAsString(response.getBody());
         objectMapper.readValue(jsonString, EventResponse.class);
