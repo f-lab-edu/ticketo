@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public class ErrorResponse {
+    public static class ErrorResponse {
 
         private String code;
         private String message;
