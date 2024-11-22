@@ -1,7 +1,6 @@
 package org.flab.api.domain.category.api;
 
 import lombok.RequiredArgsConstructor;
-import org.flab.api.domain.category.service.CategoryResponseService;
 import org.flab.api.domain.category.dto.CategoryListResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/categories")
 public class CategoryController {
 
-    private final CategoryResponseService categoryResponseService;
+    private final RequestResponseHelper helper;
 
     @GetMapping
     public ResponseEntity<CategoryListResponse> getCategoryList () {
-        CategoryListResponse response = categoryResponseService.getCategoryListResponse();
+        CategoryListResponse response = helper.getCategoryListResponse();
         return ResponseEntity.ok(response);
     }
 }
