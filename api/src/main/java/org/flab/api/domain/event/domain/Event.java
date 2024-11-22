@@ -5,6 +5,7 @@ import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -22,9 +23,12 @@ import lombok.NoArgsConstructor;
 import org.flab.api.domain.category.domain.Category;
 import org.flab.api.domain.event.dto.event.response.CharacterResponse;
 import org.flab.api.domain.event.dto.event.response.EventResponse;
-import org.flab.api.global.common.Auditable;
 import org.hibernate.annotations.BatchSize;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +37,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "event")
-public class Event extends Auditable {
+@EntityListeners(AuditingEntityListener.class)
+public class Event {
 
     @Id
     @Column(name="id")
@@ -98,6 +103,14 @@ public class Event extends Auditable {
     @BatchSize(size = 100)
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     private List<Character> characterList = new ArrayList<>();
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreatedDate
+    private ZonedDateTime createdAt;
+
+    @Column(name = "updated_at")
+    @LastModifiedDate
+    private ZonedDateTime updatedAt;
 
     public EventResponse toResponse(List<CharacterResponse> castList) {
         return new EventResponse(id, name, type , eventPeriod.getStartDateTime(), eventPeriod.getEndDateTime()
