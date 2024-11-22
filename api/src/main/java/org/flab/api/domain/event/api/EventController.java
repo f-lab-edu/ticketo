@@ -2,7 +2,7 @@ package org.flab.api.domain.event.api;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.flab.api.domain.event.application.EventResponseService;
+import org.flab.api.domain.event.service.EventResponseService;
 import org.flab.api.domain.event.dto.event.request.EventRequestParams;
 import org.flab.api.domain.event.dto.event.request.MembershipRequest;
 import org.flab.api.domain.event.dto.event.response.EventListResponse;

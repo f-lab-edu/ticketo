@@ -1,4 +1,4 @@
-package org.flab.api.domain.event.application;
+package org.flab.api.domain.event.service;
 
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.Cast;
