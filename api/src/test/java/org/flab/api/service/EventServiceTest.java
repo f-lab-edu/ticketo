@@ -1,8 +1,6 @@
 package org.flab.api.service;
 
-import org.flab.api.BaseUnitTest;
 import org.flab.api.domain.category.domain.Category;
-import org.flab.api.domain.event.service.EventService;
 import org.flab.api.domain.event.domain.Event;
 import org.flab.api.domain.event.domain.EventType;
 import org.flab.api.domain.event.domain.Image;
@@ -10,13 +8,16 @@ import org.flab.api.domain.event.domain.Period;
 import org.flab.api.domain.event.domain.Place;
 import org.flab.api.domain.event.domain.Region;
 import org.flab.api.domain.event.repository.EventRepository;
+import org.flab.api.domain.event.service.EventService;
 import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -26,7 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
-public class EventServiceTest extends BaseUnitTest {
+@ExtendWith(MockitoExtension.class)
+public class EventServiceTest {
 
     @Mock
     private EventRepository eventRepository;
