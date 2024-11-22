@@ -2,6 +2,7 @@ package org.flab.api.domain.event.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,12 +12,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import org.flab.api.domain.event.dto.event.response.CastResponse;
-import org.flab.api.global.common.Auditable;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.ZonedDateTime;
 
 @Getter
 @Entity
 @Table(name = "event_cast")
-public class Cast extends Auditable {
+@EntityListeners(AuditingEntityListener.class)
+public class Cast {
 
     @Id
     @Column(name="id")
@@ -32,6 +38,14 @@ public class Cast extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_id")
     private Character character;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreatedDate
+    private ZonedDateTime createdAt;
+
+    @Column(name = "updated_at")
+    @LastModifiedDate
+    private ZonedDateTime updatedAt;
 
     public CastResponse toResponse() {
         return new CastResponse(id, name, image);

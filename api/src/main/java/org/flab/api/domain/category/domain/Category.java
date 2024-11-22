@@ -16,8 +16,10 @@ import lombok.NoArgsConstructor;
 import org.flab.api.domain.category.dto.CategoryResponse;
 import org.flab.api.domain.category.dto.SubCategoryResponse;
 import org.flab.api.domain.event.dto.event.response.EventCategoryResponse;
-import org.flab.api.global.common.Auditable;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 @Getter
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @Entity
 @Table(name = "category")
-public class Category extends Auditable {
+public class Category {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +39,14 @@ public class Category extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreatedDate
+    private ZonedDateTime createdAt;
+
+    @Column(name = "updated_at")
+    @LastModifiedDate
+    private ZonedDateTime updatedAt;
 
     public CategoryResponse toResponse() {
         return new CategoryResponse(this.id,this.name, new ArrayList<>());
