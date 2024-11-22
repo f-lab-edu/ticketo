@@ -1,7 +1,7 @@
 package org.flab.api.domain.category.api;
 
 import lombok.RequiredArgsConstructor;
-import org.flab.api.domain.category.application.CategoryResponseService;
+import org.flab.api.domain.category.service.CategoryResponseService;
 import org.flab.api.domain.category.dto.CategoryListResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

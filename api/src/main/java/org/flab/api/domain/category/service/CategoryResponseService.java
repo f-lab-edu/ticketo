@@ -1,4 +1,4 @@
-package org.flab.api.domain.category.application;
+package org.flab.api.domain.category.service;
 
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.category.domain.Category;
