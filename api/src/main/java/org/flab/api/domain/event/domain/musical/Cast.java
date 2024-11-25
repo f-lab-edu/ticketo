@@ -1,4 +1,4 @@
-package org.flab.api.domain.event.domain;
+package org.flab.api.domain.event.domain.musical;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
