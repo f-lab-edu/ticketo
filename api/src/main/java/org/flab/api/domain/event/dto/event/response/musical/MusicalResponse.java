@@ -1,9 +1,10 @@
-package org.flab.api.domain.event.dto.event.response;
+package org.flab.api.domain.event.dto.event.response.musical;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.flab.api.domain.event.dto.event.response.EventResponse;
 
 import java.util.List;
 

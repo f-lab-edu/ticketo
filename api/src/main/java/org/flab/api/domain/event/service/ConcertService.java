@@ -2,7 +2,7 @@ package org.flab.api.domain.event.service;
 
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.concert.Concert;
-import org.flab.api.domain.event.repository.ConcertRepository;
+import org.flab.api.domain.event.repository.concert.ConcertRepository;
 import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;

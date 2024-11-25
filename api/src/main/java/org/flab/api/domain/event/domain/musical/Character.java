@@ -12,7 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import org.flab.api.domain.event.domain.Event;
-import org.flab.api.domain.event.dto.event.response.CharacterResponse;
+import org.flab.api.domain.event.dto.event.response.musical.CharacterResponse;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

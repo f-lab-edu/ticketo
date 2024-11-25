@@ -1,4 +1,4 @@
-package org.flab.api.domain.event.repository;
+package org.flab.api.domain.event.repository.concert;
 
 import org.flab.api.domain.event.domain.concert.Concert;
 

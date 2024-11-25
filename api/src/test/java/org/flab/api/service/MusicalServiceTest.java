@@ -2,7 +2,7 @@ package org.flab.api.service;
 
 import org.flab.api.domain.event.domain.EventType;
 import org.flab.api.domain.event.domain.musical.Musical;
-import org.flab.api.domain.event.repository.MusicalRepository;
+import org.flab.api.domain.event.repository.musical.MusicalRepository;
 import org.flab.api.domain.event.service.MusicalService;
 import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;

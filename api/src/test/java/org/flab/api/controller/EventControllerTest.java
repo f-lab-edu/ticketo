@@ -6,7 +6,7 @@ import org.flab.api.domain.event.dto.event.request.EventRequestParams;
 import org.flab.api.domain.event.dto.event.request.MembershipRequest;
 import org.flab.api.domain.event.dto.event.response.ConcertResponse;
 import org.flab.api.domain.event.dto.event.response.EventResponse;
-import org.flab.api.domain.event.dto.event.response.MusicalResponse;
+import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 import org.flab.api.global.common.ListRequestParams;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

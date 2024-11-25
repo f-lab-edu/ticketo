@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.flab.api.domain.event.domain.Event;
-import org.flab.api.domain.event.dto.event.response.MusicalResponse;
+import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
