@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MockitoExtension.class)
 public class CategoryListTest {
 
-    private CategoryList categoryList;
+    private CategoryList target;
     private final List<Category> categoryEntityList = new ArrayList<>();
     private final long topEventId = 1L;
 
@@ -30,7 +30,7 @@ public class CategoryListTest {
         categoryEntityList.add(new Category(5L, "하위카테고리3", new Category(2L, "상위카테고리", null, ZonedDateTime.now(), ZonedDateTime.now()), ZonedDateTime.now(), ZonedDateTime.now()));
         categoryEntityList.add(new Category(6L, "하위카테고리4", new Category(2L, "상위카테고리", null, ZonedDateTime.now(), ZonedDateTime.now()), ZonedDateTime.now(), ZonedDateTime.now()));
 
-        categoryList = new CategoryList(categoryEntityList);
+        target = new CategoryList(categoryEntityList);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class CategoryListTest {
     public void getTopCategoryList() {
         // given
         // when
-        List<Category> topCategoryList = categoryList.getTopCategoryList();
+        List<Category> topCategoryList = target.getTopCategoryList();
 
         // then
         assertThat(topCategoryList.stream()
@@ -51,7 +51,7 @@ public class CategoryListTest {
     public void getSubCategoryList() {
         // given
         // when
-        List<Category> subCategoryList = categoryList.getSubCategoryListByParentId(topEventId);
+        List<Category> subCategoryList = target.getSubCategoryListByParentId(topEventId);
 
         // then
         assertThat(subCategoryList.stream()

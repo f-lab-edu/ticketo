@@ -2,7 +2,6 @@ package org.flab.api.domain.event.api;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.flab.api.domain.event.service.EventResponseService;
 import org.flab.api.domain.event.dto.event.request.EventRequestParams;
 import org.flab.api.domain.event.dto.event.request.MembershipRequest;
 import org.flab.api.domain.event.dto.event.response.EventListResponse;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/events")
 public class EventController {
 
-    private final EventResponseService eventResponseService;
+    private final EventRequestResponseHelper helper;
 
     @GetMapping
     public ResponseEntity<EventListResponse> getEventList(@ModelAttribute ListRequestParams requestParam, @ModelAttribute @Valid EventRequestParams eventRequestParams) {
@@ -37,7 +36,7 @@ public class EventController {
 
     @GetMapping("/{eventId}")
     public ResponseEntity<EventResponse> getEvent(@PathVariable Long eventId) {
-        EventResponse response = eventResponseService.getEventResponse(eventId);
+        EventResponse response = helper.getEventResponse(eventId);
         return ResponseEntity.ok(response);
     }
 

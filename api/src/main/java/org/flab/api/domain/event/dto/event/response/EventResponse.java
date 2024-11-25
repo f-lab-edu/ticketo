@@ -11,8 +11,7 @@ import org.flab.api.domain.event.domain.EventType;
 import java.time.ZonedDateTime;
 
 @JsonTypeInfo(
-        use = JsonTypeInfo.Id.NAME,
-        property = "type"
+        use = JsonTypeInfo.Id.NAME
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = ConcertResponse.class, name = "concert"),

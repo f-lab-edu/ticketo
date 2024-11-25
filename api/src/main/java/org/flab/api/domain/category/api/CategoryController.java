@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/categories")
 public class CategoryController {
 
-    private final RequestResponseHelper helper;
+    private final CategoryRequestResponseHelper helper;
 
     @GetMapping
     public ResponseEntity<CategoryListResponse> getCategoryList () {
