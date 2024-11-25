@@ -80,7 +80,7 @@ public class Event {
             @AttributeOverride(name = "startDateTime", column = @Column(name = "pre_reservation_start_datetime"))
             , @AttributeOverride(name = "endDateTime", column = @Column(name = "pre_reservation_end_datetime"))
     })
-    private Period preReservationDateTime;
+    private Period preReservationPeriod;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
