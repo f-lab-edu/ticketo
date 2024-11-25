@@ -12,8 +12,6 @@ import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 @Component
 @RequiredArgsConstructor
 public class EventRequestResponseHelper {
@@ -22,7 +20,7 @@ public class EventRequestResponseHelper {
     private final ConcertService concertService;
 
     public EventResponse getEventResponse(String eventType, long eventId) {
-        EventType type = validateEventType(eventType);
+        EventType type = EventType.validateEventType(eventType);
         return switch (type) {
             case CONCERT -> convertToEventResponse(concertService.getEvent(eventId));
             case MUSICAL -> convertToEventResponse(musicalService.getEvent(eventId));
@@ -37,12 +35,5 @@ public class EventRequestResponseHelper {
         } else {
             throw new CustomException(ErrorCode.INVALID_EVENT_TYPE);
         }
-    }
-
-    private EventType validateEventType(String eventType) {
-        return Arrays.stream(EventType.values())
-                .filter(type -> type.name().equalsIgnoreCase(eventType))
-                .findFirst()
-                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_EVENT_TYPE));
     }
 }
