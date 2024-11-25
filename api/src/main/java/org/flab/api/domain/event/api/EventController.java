@@ -34,9 +34,9 @@ public class EventController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{eventId}")
-    public ResponseEntity<EventResponse> getEvent(@PathVariable Long eventId) {
-        EventResponse response = helper.getEventResponse(eventId);
+    @GetMapping("/types/{eventType}/{eventId}")
+    public ResponseEntity<EventResponse> getEvent(@PathVariable String eventType, @PathVariable long eventId) {
+        EventResponse response = helper.getEventResponse(eventType, eventId);
         return ResponseEntity.ok(response);
     }
 

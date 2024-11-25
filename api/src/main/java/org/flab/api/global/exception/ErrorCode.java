@@ -14,7 +14,7 @@ public enum ErrorCode {
 
     // event
     , EVENT_NOT_FOUND("EVENT-0001", "존재하지 않는 이벤트입니다.")
-    , EVENT_TYPE_NOT_FOUND("EVENT-0002", "유효하지 않은 이벤트 타입입니다.")
+    , INVALID_EVENT_TYPE("EVENT-0002", "유효하지 않은 이벤트 타입입니다.")
     ;
 
     private final String message;
