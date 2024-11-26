@@ -51,7 +51,7 @@ public class MusicalServiceTest {
     }
 
     @Test
-    @DisplayName("존재하지 않는 이벤트 조회")
+    @DisplayName("존재하지 않는 뮤지컬 조회")
     public void getEventNotFoundTest() {
         // given
         given(musicalRepository.findMusicalWithRelationEntity(notFoundId)).willReturn(Optional.empty());

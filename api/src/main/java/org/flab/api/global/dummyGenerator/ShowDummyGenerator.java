@@ -1,21 +1,12 @@
 package org.flab.api.global.dummyGenerator;
 
 import org.flab.api.domain.event.dto.seat.response.RemainSeatResponse;
-import org.flab.api.domain.event.dto.show.ShowListResponse;
 import org.flab.api.domain.event.dto.show.ShowResponse;
-import org.flab.api.domain.event.dto.show.ShowSimpleResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShowDummyGenerator {
-
-    public static ShowListResponse generateShowListResponse() {
-        List<ShowSimpleResponse> shows = new ArrayList<>();
-        shows.add(new ShowSimpleResponse(123, "202412071400", "202412071400", "202412071400"));
-        shows.add(new ShowSimpleResponse(124, "202412071400", "202412071400", "202412071400"));
-        return new ShowListResponse(shows.size(), shows);
-    }
 
     public static ShowResponse generateShowResponse() {
         List<RemainSeatResponse> seats = new ArrayList<>();
