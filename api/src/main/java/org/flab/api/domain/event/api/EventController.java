@@ -41,8 +41,8 @@ public class EventController {
     }
 
     @GetMapping("/{eventId}/prices")
-    public ResponseEntity<EventPriceListResponse> getEventPriceList(@PathVariable Long eventId){
-        EventPriceListResponse response = EventDummyGenerator.generateDummyEventPriceResponse();
+    public ResponseEntity<EventPriceListResponse> getEventPriceList(@PathVariable long eventId){
+        EventPriceListResponse response = helper.getEventPriceListResponse(eventId);
         return ResponseEntity.ok(response);
     }
 

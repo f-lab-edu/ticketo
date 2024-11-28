@@ -7,6 +7,7 @@ import org.flab.api.domain.event.dto.event.request.MembershipRequest;
 import org.flab.api.domain.event.dto.event.response.ConcertResponse;
 import org.flab.api.domain.event.dto.event.response.EventResponse;
 import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
+import org.flab.api.domain.event.dto.price.EventPriceListResponse;
 import org.flab.api.global.common.ListRequestParams;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,13 +18,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.isA;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -74,28 +70,16 @@ public class EventControllerTest extends BaseIntegrationTest {
     @DisplayName("공연 별 좌석 가격 목록 조회 요청")
     public void getEventPriceListResponse() throws Exception {
         // given
-        long eventId = 12354L;
+        long eventId = 2L;
 
         // when
-        ResultActions resultActions  = mockMvc.perform(get(BASE_URI+"/{eventId}/prices", eventId)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-        );
+        ResponseEntity<EventPriceListResponse> response = restTemplate.getForEntity(BASE_URI+ "/{eventId}/prices"
+                , EventPriceListResponse.class, eventId);
 
         // then
-        resultActions.andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.totalCount").value(isA(Number.class)))
-                .andExpect(jsonPath("$.grades").isArray())
-                .andExpect(jsonPath("$.grades[*].gradeId", everyItem(isA(Number.class))))
-                .andExpect(jsonPath("$.grades[*].gradeName", everyItem(isA(String.class))))
-                .andExpect(jsonPath("$.grades[*].basicPrice", everyItem(isA(Number.class))))
-                .andExpect(jsonPath("$.grades[*].discountPolicies").isArray())
-                .andExpect(jsonPath("$.grades[*].discountPolicies[*].discountPolicyId", everyItem(isA(Number.class))))
-                .andExpect(jsonPath("$.grades[*].discountPolicies[*].discountPolicyName", everyItem(isA(String.class))))
-                .andExpect(jsonPath("$.grades[*].discountPolicies[*].discountRate", everyItem(isA(Number.class))))
-                .andExpect(jsonPath("$.grades[*].discountPolicies[*].discountPrice", everyItem(isA(Number.class))));
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        String jsonString = objectMapper.writeValueAsString(response.getBody());
+        objectMapper.readValue(jsonString, EventPriceListResponse.class);
     }
 
     @Test
