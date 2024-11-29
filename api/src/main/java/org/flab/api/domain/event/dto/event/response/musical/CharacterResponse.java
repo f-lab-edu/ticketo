@@ -1,4 +1,4 @@
-package org.flab.api.domain.event.dto.event.response;
+package org.flab.api.domain.event.dto.event.response.musical;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

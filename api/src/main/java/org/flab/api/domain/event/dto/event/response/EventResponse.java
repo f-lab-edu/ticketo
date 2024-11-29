@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.flab.api.domain.event.domain.EventType;
+import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 
 import java.time.ZonedDateTime;
 

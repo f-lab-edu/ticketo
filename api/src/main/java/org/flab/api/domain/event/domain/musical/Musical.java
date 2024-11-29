@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.flab.api.domain.event.domain.Event;
-import org.flab.api.domain.event.dto.event.response.MusicalResponse;
+import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
@@ -41,6 +41,9 @@ public class Musical extends Event {
                 .eventEndDate(super.getEventPeriod().getEndDateTime())
                 .reservationStartDateTime(super.getReservationPeriod().getStartDateTime())
                 .reservationEndDateTime(super.getReservationPeriod().getEndDateTime())
+                .hasPreReservation(super.getHasPreReservation())
+                .preReservationStartDateTime(super.getPreReservationPeriod().getStartDateTime())
+                .preReservationEndDateTime(super.getReservationPeriod().getEndDateTime())
                 .category(super.getCategory().toEventCategoryResponse())
                 .place(super.getPlace().toEventPlaceResponse())
                 .region(super.getRegion().toEventRegionResponse())
