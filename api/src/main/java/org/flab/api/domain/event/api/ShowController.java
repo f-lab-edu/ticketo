@@ -1,5 +1,6 @@
 package org.flab.api.domain.event.api;
 
+import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.dto.show.ShowListResponse;
 import org.flab.api.domain.event.dto.show.ShowResponse;
 import org.flab.api.global.dummyGenerator.ShowDummyGenerator;
@@ -9,13 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/events/{eventId}/shows")
 public class ShowController {
 
+    private final ShowRequestResponseHelper helper;
+
     @GetMapping
     public ResponseEntity<ShowListResponse> getShowList(@PathVariable("eventId") long eventId) {
-        ShowListResponse response = ShowDummyGenerator.generateShowListResponse();
+        ShowListResponse response = helper.getShowListResponse(eventId);
         return ResponseEntity.ok(response);
     }
 

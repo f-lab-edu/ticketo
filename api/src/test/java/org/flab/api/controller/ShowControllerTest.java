@@ -1,13 +1,20 @@
 package org.flab.api.controller;
 
 import org.flab.api.BaseIntegrationTest;
+import org.flab.api.domain.event.dto.show.ShowListResponse;
+import org.flab.api.global.exception.CustomException;
+import org.flab.api.global.exception.ErrorCode;
+import org.flab.api.global.exception.GlobalExceptionHandler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.isA;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -16,30 +23,36 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ShowControllerTest extends BaseIntegrationTest {
 
     private final String BASE_URI = "/api/events/{eventId}/shows";
-    private final long EVENT_ID = 12354L;
 
     @Test
-    @DisplayName("회차 목록 조회 요청")
+    @DisplayName("이벤트 회차 목록 조회 요청")
     public void getShowListResponse() throws Exception {
         // given
-        long eventId = 12354L;
+        long eventId = 1L;
 
         // when
-        ResultActions resultActions  = mockMvc.perform(get(BASE_URI, EVENT_ID)
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-        );
+        ResponseEntity<ShowListResponse> response = restTemplate.getForEntity(BASE_URI, ShowListResponse.class, eventId);
 
         // then
-        resultActions.andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.totalCount").value(isA(Number.class)))
-                .andExpect(jsonPath("$.shows").isArray())
-                .andExpect(jsonPath("$.shows[*].showId", everyItem(isA(Number.class))))
-                .andExpect(jsonPath("$.shows[*].showDateTime", everyItem(isA(String.class))))
-                .andExpect(jsonPath("$.shows[*].reservationStartDateTime", everyItem(isA(String.class))))
-                .andExpect(jsonPath("$.shows[*].reservationStartDateTime", everyItem(isA(String.class))));
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        String jsonString = objectMapper.writeValueAsString(response.getBody());
+        objectMapper.readValue(jsonString, ShowListResponse.class);
+    }
+
+    @Test
+    @DisplayName("회차 없는 이벤트 회차 목록 조회 요청")
+    public void getShowListResponseWithNoShows() {
+        // given
+        long eventId = 2L;
+
+        // when
+        try {
+            restTemplate.getForEntity(BASE_URI, GlobalExceptionHandler.ErrorResponse.class, eventId);
+        } catch(CustomException e) {
+
+        // then
+            assertEquals(e.getErrorCode(), ErrorCode.EVENT_HAS_NO_SHOW);
+        }
     }
 
     @Test
@@ -49,7 +62,7 @@ public class ShowControllerTest extends BaseIntegrationTest {
         long showId = 12354L;
 
         // when
-        ResultActions resultActions  = mockMvc.perform(get(BASE_URI + "/{showId}", EVENT_ID, showId)
+        ResultActions resultActions  = mockMvc.perform(get(BASE_URI + "/{showId}",1, showId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
         );

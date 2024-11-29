@@ -51,3 +51,9 @@ VALUES ( 1,  1, '강홍석', '//ticketimage.ticketo.com/Play/image/actor/24/2401
 , (4, 3, '김수하', '//ticketimage.ticketo.com/Play/image/actor/25/2234333443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
 , (5, 3, '김환희', '//ticketimage.ticketo.com/Play/image/actor/25/2234333443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
 ;
+
+
+INSERT INTO show (id, event_id, show_datetime, reservation_start_datetime, reservation_end_datetime, created_at, updated_at)
+VALUES (1, 1, '2024-12-12 18:00:00', '2024-11-12 18:00:00', '2024-11-15 11:33:12', '2024-11-12 11:33:12', '2024-11-12 11:33:12')
+, (2, 1, '2024-12-13 18:00:00', '2024-11-12 18:00:00', '2024-11-15 11:33:12', '2024-11-12 11:33:12', '2024-11-12 11:33:12')
+;
