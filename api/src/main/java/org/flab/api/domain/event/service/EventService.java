@@ -19,7 +19,7 @@ public class EventService {
 
     public Event getEvent(Long eventId) {
         Optional<Event> event = eventRepository.findEventWithRelationEntity(eventId);
-        if(event.isEmpty()) {
+        if (event.isEmpty()) {
             throw new CustomException(ErrorCode.EVENT_NOT_FOUND);
         }
         return event.get();

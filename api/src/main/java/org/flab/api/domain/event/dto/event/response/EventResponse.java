@@ -1,14 +1,26 @@
 package org.flab.api.domain.event.dto.event.response;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.flab.api.domain.event.domain.EventType;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
-@AllArgsConstructor
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = ConcertResponse.class, name = "concert"),
+        @JsonSubTypes.Type(value = MusicalResponse.class, name = "musical")
+})
 @Getter
+@SuperBuilder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EventResponse {
     private Long eventId;
     private String eventName;
@@ -16,7 +28,6 @@ public class EventResponse {
     private ZonedDateTime eventStartDate;
     private ZonedDateTime eventEndDate;
     private Integer runningTime;
-    private Integer interMissionTime;
     private String description;
     private ZonedDateTime reservationStartDateTime;
     private ZonedDateTime reservationEndDateTime;
@@ -27,5 +38,4 @@ public class EventResponse {
     private PlaceResponse place;
     private RegionResponse region;
     private EventImageResponse image;
-    private List<CharacterResponse> casts;
 }

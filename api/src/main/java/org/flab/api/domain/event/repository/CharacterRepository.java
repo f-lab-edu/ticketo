@@ -1,6 +1,6 @@
 package org.flab.api.domain.event.repository;
 
-import org.flab.api.domain.event.domain.Character;
+import org.flab.api.domain.event.domain.musical.Character;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
