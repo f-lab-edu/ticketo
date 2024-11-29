@@ -32,8 +32,8 @@ public class EventServiceTest {
     @InjectMocks
     private EventService target;
 
-    private long musicalId = 1L;
-    private long concertId = 2L;
+    private final long musicalId = 1L;
+    private final long concertId = 2L;
     private final long notFoundId = 3L;
 
     @Test
@@ -60,7 +60,6 @@ public class EventServiceTest {
         Concert mockConcert = mock(Concert.class);
         when(mockConcert.getId()).thenReturn(concertId);
         when(mockConcert.getType()).thenReturn(EventType.CONCERT);
-
         given(eventRepository.findEventWithRelationEntity(concertId)).willReturn(Optional.of(mockConcert));
 
         // when

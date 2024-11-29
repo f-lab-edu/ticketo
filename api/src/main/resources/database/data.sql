@@ -37,13 +37,6 @@ VALUES
 , (2,'MUSICAL', '킹키부츠 - 서울', 150, 20,15,  '킹키부츠입니다.','2024-11-12 11:33:12', '2024-11-12 11:33:12', '2024-11-14 11:33:12', '2024-11-14 11:33:12', false, '2024-11-14 11:33:12', '2024-11-14 11:33:12',  2, 2, '//ticketimage.ticketo.com/Play/image/thumbnail/24/24013443_p.gif', '//ticketimage.ticketo.comrz/image/play/events/poster/24/240343437_p_s.jpg', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
 ;
 
--- INSERT INTO actor (id, name, image, created_at, updated_at)
--- VALUES (1, '강홍석', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
--- , (2, '서경석', '//ticketimage.ticketo.com/Play/image/actor/25/223433443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
--- , (3, '최재림', '//ticketimage.ticketo.com/Play/image/actor/25/223433443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
--- , (4, '김수하', '//ticketimage.ticketo.com/Play/image/actor/25/2234333443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
--- , (5, '김환희', '//ticketimage.ticketo.com/Play/image/actor/25/2234333443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
--- ;
 
 INSERT INTO character(id, name, event_id, created_at, updated_at)
 VALUES (1, '롤라', 2, '2024-11-12 11:33:12', '2024-11-14 11:33:12')

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class RequestResponseHelper {
+public class CategoryRequestResponseHelper {
 
     private final CategoryService categoryService;
 
@@ -40,7 +40,7 @@ public class RequestResponseHelper {
     private void addSubCategoryResponseList(CategoryList categoryList, Map<Long, CategoryResponse> topCategoryResponseMap) {
         topCategoryResponseMap.forEach((categoryId, categoryResponse) -> {
             List<Category> subCategoryList = categoryList.getSubCategoryListByParentId(categoryId);
-            List<SubCategoryResponse> subCategoryResponseList = subCategoryList.stream().map(Category::toSubCategoryResponse).collect(Collectors.toList());
+            List<SubCategoryResponse> subCategoryResponseList = subCategoryList.stream().map(Category::toSubCategoryResponse).toList();
             topCategoryResponseMap.get(categoryId).getSubCategories().addAll(subCategoryResponseList);
         });
     }
