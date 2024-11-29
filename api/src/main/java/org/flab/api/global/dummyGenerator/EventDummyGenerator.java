@@ -4,34 +4,13 @@ import org.flab.api.domain.category.dto.SubCategoryResponse;
 import org.flab.api.domain.event.dto.event.response.EventCategoryResponse;
 import org.flab.api.domain.event.dto.event.response.EventImageResponse;
 import org.flab.api.domain.event.dto.event.response.EventListResponse;
+import org.flab.api.domain.event.dto.event.response.EventSimpleResponse;
 import org.flab.api.domain.event.dto.event.response.PlaceResponse;
 import org.flab.api.domain.event.dto.event.response.RegionResponse;
-import org.flab.api.domain.event.dto.event.response.EventSimpleResponse;
-import org.flab.api.domain.event.dto.price.DiscountPolicyResponse;
-import org.flab.api.domain.event.dto.price.EventPriceListResponse;
-import org.flab.api.domain.event.dto.price.SeatGradeResponse;
 
 import java.util.List;
 
 public class EventDummyGenerator {
-
-    public static EventPriceListResponse generateDummyEventPriceResponse() {
-
-        DiscountPolicyResponse discount1 = new DiscountPolicyResponse(1, "재관람 할인(1인1매)20%", 20, 136000);
-        DiscountPolicyResponse discount2 = new DiscountPolicyResponse(2, "청소년 할인(본인만)20%", 20, 136000);
-        discount1.setDiscountPrice(170000);
-        discount2.setDiscountPrice(170000);
-        SeatGradeResponse grade1 = new SeatGradeResponse(1, "VIP석", 1700000, List.of(discount1, discount2));
-
-        DiscountPolicyResponse discount3 = new DiscountPolicyResponse(1, "재관람 할인(1인1매)20%", 20, 136000);
-        DiscountPolicyResponse discount4 = new DiscountPolicyResponse(2, "청소년 할인(본인만)20%", 20, 136000);
-        discount3.setDiscountPrice(150000);
-        discount4.setDiscountPrice(150000);
-        SeatGradeResponse grade2 = new SeatGradeResponse(2, "S석", 1500000, List.of(discount3, discount4));
-
-        return new EventPriceListResponse(2, List.of(grade1, grade2));
-    }
-
 
     public static EventListResponse generateDummyEventListResponse() {
 

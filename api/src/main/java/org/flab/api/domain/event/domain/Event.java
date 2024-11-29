@@ -17,18 +17,22 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.flab.api.domain.category.domain.Category;
+import org.flab.api.domain.event.domain.seat.DiscountPolicy;
+import org.flab.api.domain.event.domain.seat.Grade;
 import org.hibernate.annotations.Formula;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -96,6 +100,12 @@ public class Event {
 
     @Embedded
     private Image image;
+
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+    private List<Grade> gradeList;
+
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+    private List<DiscountPolicy> discountPolicyList;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
