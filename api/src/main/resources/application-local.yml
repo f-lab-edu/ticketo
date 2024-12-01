@@ -24,3 +24,4 @@ spring:
 logging:
   level:
     org.hibernate.type: trace
+    org.hibernate.orm.jdbc.bind: trace
