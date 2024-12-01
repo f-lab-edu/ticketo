@@ -1,44 +1,53 @@
-package org.flab.api.domain.event.domain;
+package org.flab.api.domain.event.domain.seat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
-import org.hibernate.annotations.BatchSize;
+import org.flab.api.domain.event.domain.Show;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Character {
+public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "show_id")
+    private Show show;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @JoinColumn(name = "zone_id")
+    private Zone zone;
 
-    @BatchSize(size = 100)
-    @OneToMany(mappedBy = "character", fetch = FetchType.LAZY)
-    private List<Cast> castList;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "grade_id")
+    private Grade grade;
+
+    @Column(name="row_number")
+    private Integer rowNumber;
+
+    @Column(name = "seat_number")
+    private Integer seatNumber;
+
+    @Enumerated(EnumType.STRING)
+    private SeatStatus status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate

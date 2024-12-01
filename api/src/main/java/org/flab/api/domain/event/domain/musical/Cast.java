@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import org.flab.api.domain.event.domain.Show;
 import org.flab.api.domain.event.dto.event.response.musical.CastResponse;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -20,7 +21,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Entity
-@Table(name = "event_cast")
+@Table(name = "show_cast")
 @EntityListeners(AuditingEntityListener.class)
 public class Cast {
 
@@ -34,6 +35,10 @@ public class Cast {
 
     @Column(name = "image")
     private String image;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "show_id")
+    private Show show;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_id")

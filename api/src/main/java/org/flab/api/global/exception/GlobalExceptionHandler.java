@@ -23,6 +23,20 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    protected ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
+        ErrorCode errorCode = e.getErrorCode();
+        ErrorResponse response = new ErrorResponse(errorCode);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(ValidateException.class)
+    protected ResponseEntity<ErrorResponse> handleValidateException(ValidateException e) {
+        ErrorCode errorCode = e.getErrorCode();
+        ErrorResponse response = new ErrorResponse(errorCode);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         ErrorResponse response = new ErrorResponse(ErrorCode.METHOD_NOT_ALLOWED);

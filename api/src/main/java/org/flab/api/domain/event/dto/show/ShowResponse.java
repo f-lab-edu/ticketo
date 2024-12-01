@@ -1,17 +1,31 @@
 package org.flab.api.domain.event.dto.show;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.flab.api.domain.event.domain.Show;
+import org.flab.api.domain.event.dto.event.response.musical.CastResponse;
 import org.flab.api.domain.event.dto.seat.response.RemainSeatResponse;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
-@AllArgsConstructor
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ShowResponse {
     private long showId;
-    private String showDateTime;
-    private String reservationStartDateTime;
-    private String reservationEndDateTime;
+    private ZonedDateTime showDateTime;
+    private ZonedDateTime reservationStartDateTime;
+    private ZonedDateTime reservationEndDateTime;
     private List<RemainSeatResponse> remainSeats;
+    private List<CastResponse> casts;
+
+    public ShowResponse(Show show, List<RemainSeatResponse> remainSeats, List<CastResponse> casts) {
+        this.showId = show.getId();
+        this.showDateTime = show.getShowDateTime();
+        this.reservationStartDateTime = show.getReservationPeriod().getStartDateTime();
+        this.reservationEndDateTime = show.getReservationPeriod().getEndDateTime();
+        this.remainSeats = remainSeats;
+        this.casts = casts;
+    }
 }

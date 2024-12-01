@@ -1,4 +1,4 @@
-package org.flab.api.domain.event.domain;
+package org.flab.api.domain.event.domain.seat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,9 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.Getter;
-import org.flab.api.domain.event.dto.event.response.CastResponse;
+import org.flab.api.domain.event.domain.Event;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,24 +19,23 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Entity
-@Table(name = "event_cast")
 @EntityListeners(AuditingEntityListener.class)
-public class Cast {
+public class Zone {
 
     @Id
-    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id")
+    private long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "image")
-    private String image;
+    @Column(name="row_count")
+    private int rowCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "character_id")
-    private Character character;
+    @JoinColumn(name = "event_id")
+    private Event event;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
@@ -46,9 +44,4 @@ public class Cast {
     @Column(name = "updated_at")
     @LastModifiedDate
     private ZonedDateTime updatedAt;
-
-    public CastResponse toResponse() {
-        return new CastResponse(id, name, image);
-    }
-
 }

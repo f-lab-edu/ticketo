@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 import org.flab.api.domain.category.domain.Category;
 import org.flab.api.domain.event.domain.seat.DiscountPolicy;
 import org.flab.api.domain.event.domain.seat.Grade;
+import org.flab.api.domain.event.domain.seat.Zone;
 import org.hibernate.annotations.Formula;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -103,6 +104,9 @@ public class Event {
 
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     private List<Grade> gradeList;
+
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
+    private List<Zone> zoneList;
 
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     private List<DiscountPolicy> discountPolicyList;

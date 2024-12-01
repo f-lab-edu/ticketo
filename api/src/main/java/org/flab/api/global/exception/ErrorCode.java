@@ -12,7 +12,11 @@ public enum ErrorCode {
     // event
     , EVENT_NOT_FOUND("EVENT-0001", "존재하지 않는 이벤트입니다.")
     , INVALID_EVENT_TYPE("EVENT-0002", "유효하지 않은 이벤트 타입입니다.")
-    , EVENT_HAS_NO_SHOW("EVENT-0003", "이벤트에 회차가 존재하지 않습니다.")
+    , EVENT_HAS_NO_SHOW("EVENT-0003", "이벤트의 회차가 존재하지 않습니다.")
+    , INVALID_EVENT_SHOW("EVENT-0004", "이벤트와 회차 정보가 일치하지 않습니다.")
+
+    // show
+    , SHOW_NOT_FOUND("SHOW-0001", "존재하지 않는 회차입니다.")
     ;
 
     private final String message;

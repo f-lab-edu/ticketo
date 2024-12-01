@@ -12,14 +12,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import org.flab.api.domain.event.domain.musical.Cast;
+import org.flab.api.domain.event.domain.seat.Seat;
 import org.flab.api.domain.event.dto.show.ShowSimpleResponse;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Getter
 @Entity
@@ -38,6 +42,12 @@ public class Show {
 
     @Column(name = "show_datetime")
     private ZonedDateTime showDateTime;
+
+    @OneToMany(mappedBy = "show", fetch = FetchType.LAZY)
+    private List<Seat> seatList;
+
+    @OneToMany(mappedBy = "show", fetch = FetchType.LAZY)
+    private List<Cast> castList;
 
     @Embedded
     @AttributeOverrides({

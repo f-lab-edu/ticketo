@@ -2,7 +2,7 @@ package org.flab.api.domain.event.dto.seat.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.flab.api.domain.event.domain.SeatStatus;
+import org.flab.api.domain.event.domain.seat.SeatStatus;
 
 @AllArgsConstructor
 @Getter
