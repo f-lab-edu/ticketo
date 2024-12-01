@@ -19,7 +19,7 @@ public class ShowService {
     private final ShowRepository showRepository;
 
     public List<Show> getShowListByEventId(long eventId) {
-        List<Show> showList = showRepository.findShowsByEventId(eventId);
+        List<Show> showList = showRepository.findAllByEventId(eventId);
         if(showList.isEmpty()) {
             throw new ValidateException(ErrorCode.EVENT_HAS_NO_SHOW);
         }
