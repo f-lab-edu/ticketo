@@ -32,7 +32,7 @@ public class ShowController {
     @GetMapping
     public ResponseEntity<ShowListResponse> getShowListResponse(@PathVariable("eventId") long eventId) {
         List<Show> showList = showService.getShowListByEventId(eventId);
-        List<ShowSimpleResponse> showSimpleResponseList = showList.stream().map(Show::toSimpleResponse).toList();
+        List<ShowSimpleResponse> showSimpleResponseList = showList.stream().map(ShowSimpleResponse::new).toList();
         ShowListResponse response = new ShowListResponse(showSimpleResponseList.size(), eventId, showSimpleResponseList);
         return ResponseEntity.ok(response);
     }
@@ -50,7 +50,7 @@ public class ShowController {
                     new RemainSeatResponse(grade, seatList.countSeatByGradeId(grade.getId())
                 )).toList();
 
-        List<CastResponse> castResponseList = castList.stream().map(Cast::toResponse).toList();
+        List<CastResponse> castResponseList = castList.stream().map(CastResponse::new).toList();
 
         ShowResponse response = new ShowResponse(show, remainSeatResponseList, castResponseList);
         return ResponseEntity.ok(response);

@@ -11,7 +11,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.flab.api.domain.event.dto.event.response.RegionResponse;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -42,7 +41,4 @@ public class Region {
     @LastModifiedDate
     private ZonedDateTime updatedAt;
 
-    public RegionResponse toEventRegionResponse() {
-        return new RegionResponse(id, name);
-    }
 }

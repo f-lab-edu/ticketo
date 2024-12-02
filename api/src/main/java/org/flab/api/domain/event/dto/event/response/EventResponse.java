@@ -3,9 +3,9 @@ package org.flab.api.domain.event.dto.event.response;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 import org.flab.api.domain.event.domain.EventType;
 import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 
@@ -19,8 +19,8 @@ import java.time.ZonedDateTime;
         @JsonSubTypes.Type(value = MusicalResponse.class, name = "musical")
 })
 @Getter
-@SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class EventResponse {
     private Long eventId;
     private String eventName;
@@ -38,4 +38,5 @@ public class EventResponse {
     private PlaceResponse place;
     private RegionResponse region;
     private EventImageResponse image;
+
 }

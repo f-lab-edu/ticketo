@@ -13,14 +13,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.flab.api.domain.category.dto.CategoryResponse;
-import org.flab.api.domain.category.dto.SubCategoryResponse;
-import org.flab.api.domain.event.dto.event.response.EventCategoryResponse;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -47,18 +43,6 @@ public class Category {
     @Column(name = "updated_at")
     @LastModifiedDate
     private ZonedDateTime updatedAt;
-
-    public CategoryResponse toResponse() {
-        return new CategoryResponse(this.id,this.name, new ArrayList<>());
-    }
-
-    public SubCategoryResponse toSubCategoryResponse() {
-        return new SubCategoryResponse(this.id,this.name);
-    }
-
-    public EventCategoryResponse toEventCategoryResponse() {
-        return new EventCategoryResponse(this.parent.id, this.parent.name, new SubCategoryResponse(this.id, this.name));
-    }
 
     public boolean isTopCategory() {
         return this.parent == null;

@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import org.flab.api.domain.event.domain.Event;
-import org.flab.api.domain.event.dto.event.response.musical.CharacterResponse;
 import org.hibernate.annotations.BatchSize;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -50,13 +49,4 @@ public class Character {
     @LastModifiedDate
     private ZonedDateTime updatedAt;
 
-    public CharacterResponse toResponse() {
-        return new CharacterResponse(
-                id,
-                name,
-                castList.stream()
-                        .map(Cast::toResponse)
-                        .toList()
-        );
-    }
 }

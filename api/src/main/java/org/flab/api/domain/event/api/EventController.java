@@ -10,8 +10,10 @@ import org.flab.api.domain.event.domain.seat.DiscountPolicy;
 import org.flab.api.domain.event.domain.seat.Grade;
 import org.flab.api.domain.event.dto.event.request.EventRequestParams;
 import org.flab.api.domain.event.dto.event.request.MembershipRequest;
+import org.flab.api.domain.event.dto.event.response.ConcertResponse;
 import org.flab.api.domain.event.dto.event.response.EventListResponse;
 import org.flab.api.domain.event.dto.event.response.EventResponse;
+import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 import org.flab.api.domain.event.dto.price.DiscountPolicyResponse;
 import org.flab.api.domain.event.dto.price.EventPriceListResponse;
 import org.flab.api.domain.event.dto.price.SeatGradeResponse;
@@ -19,7 +21,6 @@ import org.flab.api.domain.event.service.ConcertService;
 import org.flab.api.domain.event.service.EventService;
 import org.flab.api.domain.event.service.MusicalService;
 import org.flab.api.global.common.ListRequestParams;
-import org.flab.api.global.dummyGenerator.EventDummyGenerator;
 import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
 import org.springframework.data.domain.PageRequest;
@@ -48,8 +49,8 @@ public class EventController {
     @GetMapping
     public ResponseEntity<EventListResponse> getEventList(@ModelAttribute ListRequestParams requestParam, @ModelAttribute @Valid EventRequestParams eventRequestParams) {
         PageRequest.of(requestParam.getPage(), requestParam.getPageSize());
-        EventListResponse response = EventDummyGenerator.generateDummyEventListResponse();
-        return ResponseEntity.ok(response);
+//        EventListResponse response = EventDummyGenerator.generateDummyEventListResponse();
+        return ResponseEntity.ok(null);
     }
 
     @GetMapping("/types/{eventType}/{eventId}")
@@ -103,9 +104,9 @@ public class EventController {
 
     private EventResponse convertToEventResponse(Event event) {
         if(event instanceof Musical musical) {
-            return musical.toResponse();
+            return new MusicalResponse(musical);
         } else if(event instanceof Concert concert) {
-            return concert.toResponse();
+            return new ConcertResponse(concert);
         } else {
             throw new CustomException(ErrorCode.INVALID_EVENT_TYPE);
         }

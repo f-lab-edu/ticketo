@@ -17,7 +17,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import org.flab.api.domain.event.domain.musical.Cast;
 import org.flab.api.domain.event.domain.seat.Seat;
-import org.flab.api.domain.event.dto.show.ShowSimpleResponse;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -63,9 +62,5 @@ public class Show {
     @Column(name = "updated_at")
     @LastModifiedDate
     private ZonedDateTime updatedAt;
-
-    public ShowSimpleResponse toSimpleResponse() {
-        return new ShowSimpleResponse(id, showDateTime, reservationPeriod.getStartDateTime(), reservationPeriod.getEndDateTime());
-    }
 
 }

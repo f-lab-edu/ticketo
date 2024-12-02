@@ -11,7 +11,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.flab.api.domain.event.dto.event.response.PlaceResponse;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -41,9 +40,5 @@ public class Place {
     @Column(name = "updated_at")
     @LastModifiedDate
     private ZonedDateTime updatedAt;
-
-    public PlaceResponse toEventPlaceResponse() {
-        return new PlaceResponse(id, name);
-    }
 
 }

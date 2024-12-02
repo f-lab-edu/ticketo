@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.flab.api.domain.event.dto.event.response.EventImageResponse;
 
 @Getter
 @AllArgsConstructor
@@ -19,7 +18,4 @@ public class Image {
     @Column(name = "poster_img")
     private final String posterImageUrl;
 
-    public EventImageResponse toEventImageResponse() {
-        return new EventImageResponse(thumbnailImageUrl, posterImageUrl);
-    }
 }
