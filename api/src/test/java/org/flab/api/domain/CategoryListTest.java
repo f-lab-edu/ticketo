@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,10 +39,10 @@ public class CategoryListTest {
     public void getTopCategoryList() {
         // given
         // when
-        List<Category> topCategoryList = target.getTopCategoryList();
+        Stream<Category> topCategoryList = target.getTopCategoryStream();
 
         // then
-        assertThat(topCategoryList.stream()
+        assertThat(topCategoryList
                 .allMatch(Category::isTopCategory))
                 .isTrue();
     }
@@ -51,10 +52,10 @@ public class CategoryListTest {
     public void getSubCategoryList() {
         // given
         // when
-        List<Category> subCategoryList = target.getSubCategoryListByParentId(topEventId);
+        Stream<Category> subCategoryList = target.getSubCategoryStreamByParentId(topEventId);
 
         // then
-        assertThat(subCategoryList.stream()
+        assertThat(subCategoryList
                 .allMatch(category -> !category.isTopCategory() && category.getParent().getId() == 1L))
                 .isTrue();
     }

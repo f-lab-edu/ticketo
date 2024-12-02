@@ -1,6 +1,7 @@
 package org.flab.api.domain.category.domain;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class CategoryList {
 
@@ -10,15 +11,13 @@ public class CategoryList {
         this.categoryList = categoryList;
     }
 
-    public List<Category> getTopCategoryList() {
+    public Stream<Category> getTopCategoryStream() {
         return categoryList.stream()
-                .filter(Category::isTopCategory)
-                .toList();
+                .filter(Category::isTopCategory);
     }
 
-    public List<Category> getSubCategoryListByParentId(long parentId) {
+    public Stream<Category> getSubCategoryStreamByParentId(long parentId) {
         return categoryList.stream()
-                .filter(category -> !category.isTopCategory() && category.getParent().getId() == parentId)
-                .toList();
+                .filter(category -> !category.isTopCategory() && category.getParent().getId() == parentId);
     }
 }

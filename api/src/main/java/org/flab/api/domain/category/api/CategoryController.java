@@ -39,14 +39,12 @@ public class CategoryController {
     }
 
     private Map<Long, CategoryResponse> createTopCategoryResponseMap(CategoryList categoryList) {
-        List<Category> topCategoryList = categoryList.getTopCategoryList();
-        return topCategoryList.stream().collect(Collectors.toMap(Category::getId, Category::toResponse));
+        return categoryList.getTopCategoryStream().collect(Collectors.toMap(Category::getId, Category::toResponse));
     }
 
     private void addSubCategoryResponseList(CategoryList categoryList, Map<Long, CategoryResponse> topCategoryResponseMap) {
         topCategoryResponseMap.forEach((categoryId, categoryResponse) -> {
-            List<Category> subCategoryList = categoryList.getSubCategoryListByParentId(categoryId);
-            List<SubCategoryResponse> subCategoryResponseList = subCategoryList.stream().map(Category::toSubCategoryResponse).toList();
+            List<SubCategoryResponse> subCategoryResponseList = categoryList.getSubCategoryStreamByParentId(categoryId).map(Category::toSubCategoryResponse).toList();
             topCategoryResponseMap.get(categoryId).getSubCategories().addAll(subCategoryResponseList);
         });
     }
