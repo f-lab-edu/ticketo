@@ -1,14 +1,13 @@
-package org.flab.api.service;
+package org.flab.api.domain;
 
 import org.flab.api.domain.event.domain.seat.Grade;
 import org.flab.api.domain.event.domain.seat.Seat;
-import org.flab.api.domain.event.service.SeatService;
+import org.flab.api.domain.event.domain.seat.SeatList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -19,20 +18,18 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class SeatServiceTest {
-
-    @InjectMocks
-    private SeatService target;
+public class SeatListTest {
 
     @ParameterizedTest
     @MethodSource("provideSeatCountTestData")
     @DisplayName("좌석 등급 별 좌석 수 카운트")
     public void countSeatByGradeId(long gradeId, long expectedCount) {
         // given
-        List<Seat> seatList = createSeatListMockByGradeId(gradeId, expectedCount);
+        List<Seat> seatEntityList = createSeatListMockByGradeId(gradeId, expectedCount);
 
         // when
-        long count = target.countSeatByGradeId(seatList, gradeId);
+        SeatList target = new SeatList(seatEntityList);
+        long count = target.countSeatByGradeId(gradeId);
 
         // then
         assertThat(count).isEqualTo(expectedCount);

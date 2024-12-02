@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.Show;
 import org.flab.api.domain.event.domain.musical.Cast;
 import org.flab.api.domain.event.domain.seat.Grade;
-import org.flab.api.domain.event.domain.seat.Seat;
+import org.flab.api.domain.event.domain.seat.SeatList;
 import org.flab.api.domain.event.domain.seat.SeatStatus;
 import org.flab.api.domain.event.dto.event.response.musical.CastResponse;
 import org.flab.api.domain.event.dto.seat.response.RemainSeatResponse;
@@ -40,14 +40,14 @@ public class ShowController {
     @GetMapping("/{showId}")
     public ResponseEntity<ShowResponse> getShowResponse(@PathVariable("eventId") long eventId, @PathVariable("showId") long showId) {
         Show show = showService.getShowByIdAndEventId(showId, eventId);
-        List<Seat> seatList = seatService.getSeatListByShowIdAndStatus(showId, SeatStatus.AVAILABLE);
+        SeatList seatList =  seatService.getSeatListByShowIdAndStatus(showId, SeatStatus.AVAILABLE);
 
         List<Grade> gradeList = show.getEvent().getGradeList();
         List<Cast> castList = show.getCastList();
 
         List<RemainSeatResponse> remainSeatResponseList = gradeList.stream()
                 .map(grade ->
-                    new RemainSeatResponse(grade, seatService.countSeatByGradeId(seatList, grade.getId())
+                    new RemainSeatResponse(grade, seatList.countSeatByGradeId(grade.getId())
                 )).toList();
 
         List<CastResponse> castResponseList = castList.stream().map(Cast::toResponse).toList();
