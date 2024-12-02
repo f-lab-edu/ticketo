@@ -19,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,6 +47,7 @@ public class ConcertServiceTest {
         Concert result = target.getEvent(concertId);
 
         // then
+        verify(concertRepository).findConcertWithRelationEntity(concertId);
         assertThat(result.getId()).isEqualTo(concertId);
         assertThat(result.getType()).isEqualTo(EventType.CONCERT);
     }
@@ -60,6 +62,7 @@ public class ConcertServiceTest {
         CustomException exception = assertThrows(CustomException.class, () -> target.getEvent(notFoundId));
 
         // then
+        verify(concertRepository).findConcertWithRelationEntity(notFoundId);
         assertThat(exception.getErrorCode()).isEqualTo(ErrorCode.EVENT_NOT_FOUND);
     }
 }
