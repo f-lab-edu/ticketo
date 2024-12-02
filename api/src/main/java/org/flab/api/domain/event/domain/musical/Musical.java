@@ -13,7 +13,6 @@ import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -50,7 +49,7 @@ public class Musical extends Event {
                 .image(super.getImage().toEventImageResponse())
                 .casts(characterList.stream()
                         .map(Character::toResponse)
-                        .collect(Collectors.toList()))
+                        .toList())
                 .build();
     }
 

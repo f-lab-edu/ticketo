@@ -20,7 +20,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Entity
@@ -57,7 +56,7 @@ public class Character {
                 name,
                 castList.stream()
                         .map(Cast::toResponse)
-                        .collect(Collectors.toList())
+                        .toList()
         );
     }
 }
