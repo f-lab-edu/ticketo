@@ -6,7 +6,7 @@ import org.flab.api.domain.event.repository.show.ShowRepository;
 import org.flab.api.domain.event.service.ShowService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.NotFoundException;
-import org.flab.api.global.exception.ValidateException;
+import org.flab.api.global.exception.InvalidShowException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,7 +61,7 @@ public class ShowServiceTest {
         given(showRepository.findAllByEventId(eventId)).willReturn(List.of());
 
         // when
-        ValidateException exception = assertThrows(ValidateException.class, () -> target.getShowListByEventId(eventId));
+        InvalidShowException exception = assertThrows(InvalidShowException.class, () -> target.getShowListByEventId(eventId));
 
         // then
         verify(showRepository).findAllByEventId(eventId);
@@ -117,7 +117,7 @@ public class ShowServiceTest {
         given(showRepository.findById(showId)).willReturn(Optional.of(showMock));
 
         // when
-        ValidateException exception = assertThrows(ValidateException.class, () -> target.getShowByIdAndEventId(showId, wrongEventId));
+        InvalidShowException exception = assertThrows(InvalidShowException.class, () -> target.getShowByIdAndEventId(showId, wrongEventId));
 
         // then
         verify(showRepository).findById(showId);

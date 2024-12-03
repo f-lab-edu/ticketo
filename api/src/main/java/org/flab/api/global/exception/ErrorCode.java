@@ -14,6 +14,8 @@ public enum ErrorCode {
     , INVALID_EVENT_TYPE("EVENT-0002", "유효하지 않은 이벤트 타입입니다.")
     , EVENT_HAS_NO_SHOW("EVENT-0003", "이벤트의 회차가 존재하지 않습니다.")
     , INVALID_EVENT_SHOW("EVENT-0004", "이벤트와 회차 정보가 일치하지 않습니다.")
+    , NULL_PERIOD("EVENT-0005", "시작일시 또는 종료일시가 null 입니다.")
+    , NULL_IMAGE("EVENT-0006", "공연의 이미지 데이터가 null 입니다. ")
 
     // show
     , SHOW_NOT_FOUND("SHOW-0001", "존재하지 않는 회차입니다.")

@@ -5,7 +5,7 @@ import org.flab.api.domain.event.dto.show.ShowListResponse;
 import org.flab.api.domain.event.dto.show.ShowResponse;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.GlobalExceptionHandler;
-import org.flab.api.global.exception.ValidateException;
+import org.flab.api.global.exception.InvalidShowException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -41,7 +41,7 @@ public class ShowControllerTest extends BaseIntegrationTest {
         // when
         try {
             restTemplate.getForEntity(BASE_URI, GlobalExceptionHandler.ErrorResponse.class, eventId);
-        } catch(ValidateException e) {
+        } catch(InvalidShowException e) {
             // then
             assertEquals(e.getErrorCode(), ErrorCode.EVENT_HAS_NO_SHOW);
         }
@@ -73,7 +73,7 @@ public class ShowControllerTest extends BaseIntegrationTest {
         // when
         try {
             restTemplate.getForEntity(BASE_URI + "/{showId}", GlobalExceptionHandler.ErrorResponse.class, eventId, showId);
-        } catch(ValidateException e) {
+        } catch(InvalidShowException e) {
             // then
             assertEquals(e.getErrorCode(), ErrorCode.INVALID_EVENT_SHOW);
         }

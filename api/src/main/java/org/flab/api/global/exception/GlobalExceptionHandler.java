@@ -23,6 +23,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @ExceptionHandler(InvalidShowException.class)
+    protected ResponseEntity<ErrorResponse> handleValidateException(InvalidShowException e) {
+        ErrorCode errorCode = e.getErrorCode();
+        ErrorResponse response = new ErrorResponse(errorCode);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @ExceptionHandler(NotFoundException.class)
     protected ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
         ErrorCode errorCode = e.getErrorCode();
@@ -30,8 +37,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @ExceptionHandler(ValidateException.class)
-    protected ResponseEntity<ErrorResponse> handleValidateException(ValidateException e) {
+    @ExceptionHandler(NullDataException.class)
+    protected ResponseEntity<ErrorResponse> handleValidateException(NullDataException e) {
         ErrorCode errorCode = e.getErrorCode();
         ErrorResponse response = new ErrorResponse(errorCode);
         return new ResponseEntity<>(response, HttpStatus.OK);
