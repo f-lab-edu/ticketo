@@ -15,7 +15,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import org.flab.api.domain.event.domain.musical.Cast;
+import org.flab.api.domain.event.domain.concert.ShowArtist;
+import org.flab.api.domain.event.domain.musical.ShowCast;
 import org.flab.api.domain.event.domain.seat.Seat;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -46,7 +47,10 @@ public class Show {
     private List<Seat> seatList;
 
     @OneToMany(mappedBy = "show", fetch = FetchType.LAZY)
-    private List<Cast> castList;
+    private List<ShowCast> showCastList;
+
+    @OneToMany(mappedBy = "show", fetch = FetchType.LAZY)
+    private List<ShowArtist> showArtistList;
 
     @Embedded
     @AttributeOverrides({

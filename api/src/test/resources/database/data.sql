@@ -34,7 +34,8 @@ VALUES
 INSERT INTO event (id, type, name, running_time, intermission_time, category_id, description, event_start_datetime, event_end_datetime, reservation_start_datetime, reservation_end_datetime, has_pre_reservation, pre_reservation_start_datetime, pre_reservation_end_datetime,  place_id, region_id, poster_img, thumbnail_img, created_at, updated_at)
 VALUES
 (1, 'CONCERT','콜드플레이 내한공연', 180, 0, 9, '콜드플레이 내한공연입니다.','2024-11-12 11:33:12', '2024-11-12 11:33:12', '2024-11-14 11:33:12', '2024-11-14 11:33:12',true,  '2024-11-14 11:33:12', '2024-11-14 11:33:12', 1, 1, '//ticketimage.ticketo.com/Play/image/thumbnail/24/24013437_p.gif', '//ticketimage.ticketo.comrz/image/play/events/poster/24/24013437_p_s.jpg', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
-     , (2, 'MUSICAL', '킹키부츠 - 서울', 150, 20,15,  '킹키부츠입니다.','2024-11-12 11:33:12', '2024-11-12 11:33:12', '2024-11-14 11:33:12', '2024-11-14 11:33:12', false, '2024-11-14 11:33:12', '2024-11-14 11:33:12',  2, 2, '//ticketimage.ticketo.com/Play/image/thumbnail/24/24013443_p.gif', '//ticketimage.ticketo.comrz/image/play/events/poster/24/240343437_p_s.jpg', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (2, 'MUSICAL', '킹키부츠 - 서울', 150, 20,15,  '킹키부츠입니다.','2024-11-12 11:33:12', '2024-11-12 11:33:12', '2024-11-14 11:33:12', '2024-11-14 11:33:12', false, null, null,  2, 2, '//ticketimage.ticketo.com/Play/image/thumbnail/24/24013443_p.gif', '//ticketimage.ticketo.comrz/image/play/events/poster/24/240343437_p_s.jpg', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (3, 'CONCERT','K-POP 콘서트', 180, 0, 9, 'K-POP 콘서트입니다.','2024-11-12 11:33:12', '2024-11-12 11:33:12', '2024-11-14 11:33:12', '2024-11-14 11:33:12',false,  null, null, 1, 1, '//ticketimage.ticketo.com/Play/image/thumbnail/24/24013437_p.gif', '//ticketimage.ticketo.comrz/image/play/events/poster/24/24013437_p_s.jpg', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
 ;
 
 
@@ -51,14 +52,45 @@ VALUES (1, 1, '2024-12-12 18:00:00', '2024-11-12 18:00:00', '2024-12-12 18:00:00
      , (4, 2, '2024-12-13 18:00:00', '2024-11-12 18:00:00', '2024-12-13 18:00:00', '2024-11-12 11:33:12', '2024-11-12 11:33:12')
      , (5, 2, '2024-12-14 18:00:00', '2024-11-12 18:00:00', '2024-12-14 18:00:00', '2024-11-12 11:33:12', '2024-11-12 11:33:12')
      , (6, 2, '2024-12-15 18:00:00', '2024-11-12 18:00:00', '2024-12-15 18:00:00', '2024-11-12 11:33:12', '2024-11-12 11:33:12')
+     , (7, 3, '2024-12-15 18:00:00', '2024-11-12 18:00:00', '2024-12-15 18:00:00', '2024-11-12 11:33:12', '2024-11-12 11:33:12')
 ;
 
-INSERT INTO show_cast (id, show_id, character_id, name, image, created_at, updated_at)
-VALUES ( 1, 3,  1, '강홍석', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
-     , (2, 4, 1,  '서경석', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif','2024-11-12 11:33:12', '2024-11-14 11:33:12')
-     , (3, 5, 1,  '최재림', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif','2024-11-12 11:33:12', '2024-11-14 11:33:12')
-     , (4, 3, 3, '김수하', '//ticketimage.ticketo.com/Play/image/actor/25/2234333443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
-     , (5, 4, 3, '김환희', '//ticketimage.ticketo.com/Play/image/actor/25/2234333443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+INSERT INTO actor(id, name, image, created_at, updated_at)
+VALUES ( 1, '강홍석', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (2, '서경석', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif','2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (3, '최재림', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif','2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (4, '김수하', '//ticketimage.ticketo.com/Play/image/actor/25/2234333443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (5, '김환희', '//ticketimage.ticketo.com/Play/image/actor/25/2234333443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+;
+
+INSERT INTO artist(id, name, image, created_at, updated_at)
+VALUES (1, '콜드플레이', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (2, '아이유', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (3, '방탄소년단', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (4, '악동뮤지션', '//ticketimage.ticketo.com/Play/image/actor/24/24013443_p.gif', '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+;
+
+INSERT INTO event_artist(id, event_id, artist_id,  created_at, updated_at)
+VALUES (1, 1, 1,'2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (2, 3, 2, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (3, 3, 3, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (4, 3, 4, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+;
+
+INSERT INTO show_artist(id, show_id, event_artist_id, created_at, updated_at)
+VALUES (1, 1, 1,'2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (2, 2, 1, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (3, 7, 2, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (4, 7, 3, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (5, 7, 4, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+;
+
+INSERT INTO show_cast (id, show_id, character_id, actor_id, created_at, updated_at)
+VALUES ( 1, 3,  1, 1, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (2, 4, 1,  2,'2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (3, 5, 1,  3, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (4, 3, 3, 4, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
+     , (5, 4, 3, 5, '2024-11-12 11:33:12', '2024-11-14 11:33:12')
 ;
 
 INSERT INTO grade (id, name, price, event_id, created_at, updated_at)

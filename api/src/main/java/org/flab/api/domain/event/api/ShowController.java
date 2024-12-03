@@ -2,7 +2,7 @@ package org.flab.api.domain.event.api;
 
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.Show;
-import org.flab.api.domain.event.domain.musical.Cast;
+import org.flab.api.domain.event.domain.musical.ShowCast;
 import org.flab.api.domain.event.domain.seat.Grade;
 import org.flab.api.domain.event.domain.seat.SeatList;
 import org.flab.api.domain.event.domain.seat.SeatStatus;
@@ -43,14 +43,14 @@ public class ShowController {
         SeatList seatList =  seatService.getSeatListByShowIdAndStatus(showId, SeatStatus.AVAILABLE);
 
         List<Grade> gradeList = show.getEvent().getGradeList();
-        List<Cast> castList = show.getCastList();
+        List<ShowCast> showCastList = show.getShowCastList();
 
         List<RemainSeatResponse> remainSeatResponseList = gradeList.stream()
                 .map(grade ->
                     new RemainSeatResponse(grade, seatList.countSeatByGradeId(grade.getId())
                 )).toList();
 
-        List<CastResponse> castResponseList = castList.stream().map(CastResponse::new).toList();
+        List<CastResponse> castResponseList = showCastList.stream().map(CastResponse::new).toList();
 
         ShowResponse response = new ShowResponse(show, remainSeatResponseList, castResponseList);
         return ResponseEntity.ok(response);
