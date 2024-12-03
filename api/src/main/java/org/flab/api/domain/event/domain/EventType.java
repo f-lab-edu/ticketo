@@ -1,7 +1,7 @@
 package org.flab.api.domain.event.domain;
 
-import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
+import org.flab.api.global.exception.InvalidEventTypeException;
 
 import java.util.Arrays;
 
@@ -12,6 +12,6 @@ public enum EventType {
         return Arrays.stream(EventType.values())
                 .filter(type -> type.name().equalsIgnoreCase(eventType))
                 .findFirst()
-                .orElseThrow(() -> new CustomException(ErrorCode.INVALID_EVENT_TYPE));
+                .orElseThrow(() -> new InvalidEventTypeException(ErrorCode.INVALID_EVENT_TYPE));
     }
 }

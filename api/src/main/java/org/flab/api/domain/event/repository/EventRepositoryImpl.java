@@ -16,12 +16,13 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public EventType findEventTypeById(long eventId) {
-        return queryFactory
-                .select(event.type)
-                .from(event)
-                .where(event.id.eq(eventId))
-                .fetchOne();
+    public Optional<EventType> findEventTypeById(long eventId) {
+        return Optional.ofNullable(
+                queryFactory
+                        .select(event.type)
+                        .from(event)
+                        .where(event.id.eq(eventId))
+                        .fetchOne());
     }
 
     public Optional<Event> findEventWithRelationEntity(long eventId) {

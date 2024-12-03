@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.Event;
 import org.flab.api.domain.event.domain.EventType;
 import org.flab.api.domain.event.repository.EventRepository;
-import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
+import org.flab.api.global.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,13 +19,13 @@ public class EventService {
     private final EventRepository eventRepository;
 
     public EventType getTypeById(long eventId) {
-        EventType type = eventRepository.findEventTypeById(eventId);
+        EventType type = eventRepository.findEventTypeById(eventId).orElseThrow(() -> new NotFoundException(ErrorCode.EVENT_NOT_FOUND));
         EventType.validateEventType(type.name());
         return type;
     }
 
     public Event getEvent(long eventId) {
         Optional<Event> event = eventRepository.findEventWithRelationEntity(eventId);
-        return event.orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
+        return event.orElseThrow(() -> new NotFoundException(ErrorCode.EVENT_NOT_FOUND));
     }
 }
