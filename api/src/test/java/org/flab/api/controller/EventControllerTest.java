@@ -1,11 +1,9 @@
 package org.flab.api.controller;
 
 import org.flab.api.BaseIntegrationTest;
-import org.flab.api.domain.event.domain.EventType;
 import org.flab.api.domain.event.dto.event.request.EventRequestParams;
 import org.flab.api.domain.event.dto.event.request.MembershipRequest;
-import org.flab.api.domain.event.dto.event.response.ConcertResponse;
-import org.flab.api.domain.event.dto.event.response.EventResponse;
+import org.flab.api.domain.event.dto.event.response.concert.ConcertResponse;
 import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 import org.flab.api.domain.event.dto.price.EventPriceListResponse;
 import org.flab.api.global.common.ListRequestParams;
@@ -40,8 +38,8 @@ public class EventControllerTest extends BaseIntegrationTest {
         long musicalId = 2L;
 
         // when
-        ResponseEntity<EventResponse> response = restTemplate.getForEntity(BASE_URI+ "/types/{eventType}/{musicalId}"
-                , EventResponse.class, EventType.MUSICAL.toString().toLowerCase(), musicalId);
+        ResponseEntity<MusicalResponse> response = restTemplate.getForEntity(BASE_URI+ "/{musicalId}"
+                , MusicalResponse.class, musicalId);
 
         // then
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -56,8 +54,8 @@ public class EventControllerTest extends BaseIntegrationTest {
         long concertId = 1L;
 
         // when
-        ResponseEntity<EventResponse> response = restTemplate.getForEntity(BASE_URI+ "/types/{eventType}/{concertId}"
-                , EventResponse.class, EventType.CONCERT.toString().toLowerCase(), concertId);
+        ResponseEntity<ConcertResponse> response = restTemplate.getForEntity(BASE_URI+ "/{concertId}"
+                , ConcertResponse.class, concertId);
 
         // then
         assertEquals(HttpStatus.OK, response.getStatusCode());

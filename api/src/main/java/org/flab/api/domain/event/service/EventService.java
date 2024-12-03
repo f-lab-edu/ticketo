@@ -20,8 +20,7 @@ public class EventService {
 
     public EventType getTypeById(long eventId) {
         EventType type = eventRepository.findEventTypeById(eventId).orElseThrow(() -> new NotFoundException(ErrorCode.EVENT_NOT_FOUND));
-        EventType.validateEventType(type.name());
-        return type;
+        return  EventType.validateEventType(type.name());
     }
 
     public Event getEvent(long eventId) {

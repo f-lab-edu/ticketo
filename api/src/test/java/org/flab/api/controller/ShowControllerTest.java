@@ -36,7 +36,7 @@ public class ShowControllerTest extends BaseIntegrationTest {
     @DisplayName("회차 없는 이벤트, 회차 목록 조회 요청")
     public void getShowListResponseWithNoShows() {
         // given
-        long eventId = 3L;
+        long eventId = 404L;
 
         // when
         try {

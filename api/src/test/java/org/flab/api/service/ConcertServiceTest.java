@@ -4,8 +4,8 @@ import org.flab.api.domain.event.domain.EventType;
 import org.flab.api.domain.event.domain.concert.Concert;
 import org.flab.api.domain.event.repository.concert.ConcertRepository;
 import org.flab.api.domain.event.service.ConcertService;
-import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
+import org.flab.api.global.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,7 +44,7 @@ public class ConcertServiceTest {
         given(concertRepository.findConcertWithRelationEntity(concertId)).willReturn(Optional.of(mockConcert));
 
         // when
-        Concert result = target.getEvent(concertId);
+        Concert result = target.getConcert(concertId);
 
         // then
         verify(concertRepository).findConcertWithRelationEntity(concertId);
@@ -59,7 +59,7 @@ public class ConcertServiceTest {
         given(concertRepository.findConcertWithRelationEntity(notFoundId)).willReturn(Optional.empty());
 
         // when
-        CustomException exception = assertThrows(CustomException.class, () -> target.getEvent(notFoundId));
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> target.getConcert(notFoundId));
 
         // then
         verify(concertRepository).findConcertWithRelationEntity(notFoundId);

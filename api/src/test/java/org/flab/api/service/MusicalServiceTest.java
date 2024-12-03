@@ -44,7 +44,7 @@ public class MusicalServiceTest {
         given(musicalRepository.findMusicalWithRelationEntity(musicalId)).willReturn(Optional.of(mockMusical));
 
         // when
-        Musical result = target.getEvent(musicalId);
+        Musical result = target.getMusical(musicalId);
 
         // then
         verify(musicalRepository).findMusicalWithRelationEntity(musicalId);
@@ -59,7 +59,7 @@ public class MusicalServiceTest {
         given(musicalRepository.findMusicalWithRelationEntity(notFoundId)).willReturn(Optional.empty());
 
         // when
-        CustomException exception = assertThrows(CustomException.class, () -> target.getEvent(notFoundId));
+        CustomException exception = assertThrows(CustomException.class, () -> target.getMusical(notFoundId));
 
         // then
         verify(musicalRepository).findMusicalWithRelationEntity(notFoundId);
