@@ -18,6 +18,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PostLoad;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -85,7 +87,7 @@ public class Event {
             @AttributeOverride(name = "startDateTime", column = @Column(name = "pre_reservation_start_datetime"))
             , @AttributeOverride(name = "endDateTime", column = @Column(name = "pre_reservation_end_datetime"))
     })
-    private Period preReservationPeriod;
+    private PreReservationPeriod preReservationPeriod = new PreReservationPeriod();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
@@ -118,4 +120,11 @@ public class Event {
     @Column(name = "updated_at")
     @LastModifiedDate
     private ZonedDateTime updatedAt;
+
+    @PostLoad
+    private void initializeEmbeddable() {
+        if (Objects.isNull(preReservationPeriod)) {
+            preReservationPeriod = new PreReservationPeriod();
+        }
+    }
 }
