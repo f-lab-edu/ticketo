@@ -21,8 +21,8 @@ import org.flab.api.domain.event.service.ConcertService;
 import org.flab.api.domain.event.service.EventService;
 import org.flab.api.domain.event.service.MusicalService;
 import org.flab.api.global.common.ListRequestParams;
-import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
+import org.flab.api.global.exception.InvalidEventTypeException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -108,7 +108,7 @@ public class EventController {
         } else if(event instanceof Concert concert) {
             return new ConcertResponse(concert);
         } else {
-            throw new CustomException(ErrorCode.INVALID_EVENT_TYPE);
+            throw new InvalidEventTypeException(ErrorCode.INVALID_EVENT_TYPE);
         }
     }
 }

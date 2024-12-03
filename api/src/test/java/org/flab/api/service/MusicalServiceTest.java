@@ -4,8 +4,8 @@ import org.flab.api.domain.event.domain.EventType;
 import org.flab.api.domain.event.domain.musical.Musical;
 import org.flab.api.domain.event.repository.musical.MusicalRepository;
 import org.flab.api.domain.event.service.MusicalService;
-import org.flab.api.global.exception.CustomException;
 import org.flab.api.global.exception.ErrorCode;
+import org.flab.api.global.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,7 +59,7 @@ public class MusicalServiceTest {
         given(musicalRepository.findMusicalWithRelationEntity(notFoundId)).willReturn(Optional.empty());
 
         // when
-        CustomException exception = assertThrows(CustomException.class, () -> target.getMusical(notFoundId));
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> target.getMusical(notFoundId));
 
         // then
         verify(musicalRepository).findMusicalWithRelationEntity(notFoundId);

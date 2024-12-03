@@ -16,13 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CustomException.class)
-    protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
-        ErrorCode errorCode = e.getErrorCode();
-        ErrorResponse response = new ErrorResponse(errorCode);
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-
     @ExceptionHandler({InvalidShowException.class, InvalidEventTypeException.class})
     protected ResponseEntity<ErrorResponse> handleValidateException(InvalidShowException e) {
         ErrorCode errorCode = e.getErrorCode();
