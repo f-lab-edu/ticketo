@@ -17,7 +17,7 @@ public class MusicalService {
 
     private final MusicalRepository musicalRepository;
 
-    public Musical getEvent(long eventId) {
+    public Musical getMusical(long eventId) {
        Optional<Musical> musical = musicalRepository.findMusicalWithRelationEntity(eventId);
        return musical.orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
     }

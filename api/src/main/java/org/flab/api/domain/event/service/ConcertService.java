@@ -17,7 +17,7 @@ public class ConcertService {
 
     private final ConcertRepository concertRepository;
 
-    public Concert getEvent(long eventId) {
+    public Concert getConcert(long eventId) {
         Optional<Concert> concert = concertRepository.findConcertWithRelationEntity(eventId);
         return concert.orElseThrow(() -> new CustomException(ErrorCode.EVENT_NOT_FOUND));
     }

@@ -10,9 +10,9 @@ import org.flab.api.domain.event.domain.seat.DiscountPolicy;
 import org.flab.api.domain.event.domain.seat.Grade;
 import org.flab.api.domain.event.dto.event.request.EventRequestParams;
 import org.flab.api.domain.event.dto.event.request.MembershipRequest;
-import org.flab.api.domain.event.dto.event.response.ConcertResponse;
 import org.flab.api.domain.event.dto.event.response.EventListResponse;
 import org.flab.api.domain.event.dto.event.response.EventResponse;
+import org.flab.api.domain.event.dto.event.response.concert.ConcertResponse;
 import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
 import org.flab.api.domain.event.dto.price.DiscountPolicyResponse;
 import org.flab.api.domain.event.dto.price.EventPriceListResponse;
@@ -53,9 +53,9 @@ public class EventController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("/types/{eventType}/{eventId}")
-    public ResponseEntity<EventResponse> getEvent(@PathVariable String eventType, @PathVariable long eventId) {
-        EventResponse response = getEventResponse(eventType, eventId);
+    @GetMapping("/{eventId}")
+    public ResponseEntity<EventResponse> getEvent(@PathVariable long eventId) {
+        EventResponse response = getEventResponse(eventId);
         return ResponseEntity.ok(response);
     }
 
@@ -70,11 +70,11 @@ public class EventController {
         return ResponseEntity.ok().build();
     }
 
-    private EventResponse getEventResponse(String eventType, long eventId) {
-        EventType type = EventType.validateEventType(eventType);
+    private EventResponse getEventResponse(long eventId) {
+        EventType type =  eventService.getTypeById(eventId);
         return switch (type) {
-            case CONCERT -> convertToEventResponse(concertService.getEvent(eventId));
-            case MUSICAL -> convertToEventResponse(musicalService.getEvent(eventId));
+            case CONCERT -> convertToEventResponse(concertService.getConcert(eventId));
+            case MUSICAL -> convertToEventResponse(musicalService.getMusical(eventId));
         };
     }
 
