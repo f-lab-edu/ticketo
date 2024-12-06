@@ -3,7 +3,7 @@ package org.flab.api.domain.event.dto.show;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.flab.api.domain.event.domain.Show;
+import org.flab.api.domain.event.domain.show.Show;
 
 import java.time.ZonedDateTime;
 

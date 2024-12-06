@@ -1,9 +1,9 @@
 package org.flab.api.global.dummyGenerator;
 
-import org.flab.api.domain.event.dto.seat.response.AreaResponse;
-import org.flab.api.domain.event.dto.seat.response.RowResponse;
-import org.flab.api.domain.event.dto.seat.response.SeatListResponse;
-import org.flab.api.domain.event.dto.seat.response.SeatResponse;
+import org.flab.api.domain.event.dto.seat.AreaResponse;
+import org.flab.api.domain.event.dto.seat.RowResponse;
+import org.flab.api.domain.event.dto.seat.SeatListResponse;
+import org.flab.api.domain.event.dto.seat.SeatResponse;
 import org.flab.api.domain.event.domain.seat.SeatStatus;
 
 import java.util.ArrayList;

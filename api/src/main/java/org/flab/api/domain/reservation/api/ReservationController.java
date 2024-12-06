@@ -1,7 +1,7 @@
 package org.flab.api.domain.reservation.api;
 
 import jakarta.validation.Valid;
-import org.flab.api.domain.event.dto.seat.request.SeatSelectRequest;
+import org.flab.api.domain.event.dto.seat.SeatSelectRequest;
 import org.flab.api.domain.reservation.dto.request.ReservationCreateRequest;
 import org.flab.api.domain.reservation.dto.request.ReservationRequestParams;
 import org.flab.api.domain.reservation.dto.response.ReservationListResponse;

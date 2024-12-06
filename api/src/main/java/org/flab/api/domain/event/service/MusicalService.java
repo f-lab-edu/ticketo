@@ -1,8 +1,8 @@
 package org.flab.api.domain.event.service;
 
 import lombok.RequiredArgsConstructor;
-import org.flab.api.domain.event.domain.musical.Musical;
-import org.flab.api.domain.event.repository.musical.MusicalRepository;
+import org.flab.api.domain.event.domain.event.musical.Musical;
+import org.flab.api.domain.event.repository.event.musical.MusicalRepository;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.NotFoundException;
 import org.springframework.stereotype.Service;

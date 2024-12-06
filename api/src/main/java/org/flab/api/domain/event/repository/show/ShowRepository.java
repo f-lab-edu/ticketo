@@ -1,6 +1,6 @@
 package org.flab.api.domain.event.repository.show;
 
-import org.flab.api.domain.event.domain.Show;
+import org.flab.api.domain.event.domain.show.Show;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
