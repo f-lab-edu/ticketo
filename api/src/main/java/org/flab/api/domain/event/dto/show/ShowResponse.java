@@ -27,12 +27,13 @@ public class ShowResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<ArtistResponse> artists;
 
-    public ShowResponse(Show show, List<RemainSeatResponse> remainSeats, List<CastResponse> casts) {
+    public ShowResponse(Show show, List<RemainSeatResponse> remainSeats, List<CastResponse> casts, List<ArtistResponse> artists) {
         this.showId = show.getId();
         this.showDateTime = show.getShowDateTime();
         this.reservationStartDateTime = show.getReservationPeriod().getStartDateTime();
         this.reservationEndDateTime = show.getReservationPeriod().getEndDateTime();
         this.remainSeats = remainSeats;
         this.casts = casts;
+        this.artists = artists;
     }
 }

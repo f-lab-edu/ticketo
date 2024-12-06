@@ -35,7 +35,7 @@ public class ShowArtist {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_artist_id")
-    private EventArtist artist;
+    private EventArtist eventArtist;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
