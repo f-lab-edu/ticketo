@@ -12,14 +12,14 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Embeddable
-public class PreReservationPeriod {
-    @Column(name="start_datetime", nullable = false)
+public class NullablePeriod {
+    @Column(name="start_datetime")
     private final ZonedDateTime startDateTime;
 
-    @Column(name = "end_datetime", nullable = false)
+    @Column(name = "end_datetime")
     private final ZonedDateTime endDateTime;
 
-    public PreReservationPeriod(ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
+    public NullablePeriod(ZonedDateTime startDateTime, ZonedDateTime endDateTime) {
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
     }
@@ -28,7 +28,7 @@ public class PreReservationPeriod {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PreReservationPeriod period = (PreReservationPeriod) o;
+        NullablePeriod period = (NullablePeriod) o;
         return Objects.equals(startDateTime, period.startDateTime) && Objects.equals(endDateTime, period.endDateTime);
     }
 
