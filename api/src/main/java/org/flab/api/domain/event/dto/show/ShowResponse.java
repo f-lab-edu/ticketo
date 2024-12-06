@@ -1,11 +1,13 @@
 package org.flab.api.domain.event.dto.show;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.flab.api.domain.event.domain.Show;
-import org.flab.api.domain.event.dto.event.response.musical.CastResponse;
-import org.flab.api.domain.event.dto.seat.response.RemainSeatResponse;
+import org.flab.api.domain.event.domain.show.Show;
+import org.flab.api.domain.event.dto.event.concert.ArtistResponse;
+import org.flab.api.domain.event.dto.event.musical.CastResponse;
+import org.flab.api.domain.event.dto.seat.RemainSeatResponse;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -18,7 +20,12 @@ public class ShowResponse {
     private ZonedDateTime reservationStartDateTime;
     private ZonedDateTime reservationEndDateTime;
     private List<RemainSeatResponse> remainSeats;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<CastResponse> casts;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<ArtistResponse> artists;
 
     public ShowResponse(Show show, List<RemainSeatResponse> remainSeats, List<CastResponse> casts) {
         this.showId = show.getId();

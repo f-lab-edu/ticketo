@@ -1,11 +1,11 @@
 package org.flab.api.controller;
 
 import org.flab.api.BaseIntegrationTest;
-import org.flab.api.domain.event.dto.event.request.EventRequestParams;
-import org.flab.api.domain.event.dto.event.request.MembershipRequest;
-import org.flab.api.domain.event.dto.event.response.concert.ConcertResponse;
-import org.flab.api.domain.event.dto.event.response.musical.MusicalResponse;
-import org.flab.api.domain.event.dto.price.EventPriceListResponse;
+import org.flab.api.domain.event.dto.event.EventRequestParams;
+import org.flab.api.domain.event.dto.event.MembershipRequest;
+import org.flab.api.domain.event.dto.event.concert.ConcertResponse;
+import org.flab.api.domain.event.dto.event.musical.MusicalResponse;
+import org.flab.api.domain.event.dto.seat.EventPriceListResponse;
 import org.flab.api.global.common.ListRequestParams;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

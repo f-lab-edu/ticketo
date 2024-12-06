@@ -1,7 +1,7 @@
 package org.flab.api.domain.event.service;
 
 import lombok.RequiredArgsConstructor;
-import org.flab.api.domain.event.domain.Show;
+import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.show.ShowRepository;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.NotFoundException;

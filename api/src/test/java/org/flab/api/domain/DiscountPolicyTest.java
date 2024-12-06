@@ -1,6 +1,6 @@
 package org.flab.api.domain;
 
-import org.flab.api.domain.event.domain.Event;
+import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.domain.seat.DiscountPolicy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;

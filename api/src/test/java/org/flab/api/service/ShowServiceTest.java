@@ -1,7 +1,7 @@
 package org.flab.api.service;
 
-import org.flab.api.domain.event.domain.Event;
-import org.flab.api.domain.event.domain.Show;
+import org.flab.api.domain.event.domain.event.Event;
+import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.show.ShowRepository;
 import org.flab.api.domain.event.service.ShowService;
 import org.flab.api.global.exception.ErrorCode;

@@ -1,13 +1,13 @@
 package org.flab.api.domain.event.api;
 
 import lombok.RequiredArgsConstructor;
-import org.flab.api.domain.event.domain.Show;
-import org.flab.api.domain.event.domain.musical.ShowCast;
+import org.flab.api.domain.event.domain.show.Show;
+import org.flab.api.domain.event.domain.show.ShowCast;
 import org.flab.api.domain.event.domain.seat.Grade;
 import org.flab.api.domain.event.domain.seat.SeatList;
 import org.flab.api.domain.event.domain.seat.SeatStatus;
-import org.flab.api.domain.event.dto.event.response.musical.CastResponse;
-import org.flab.api.domain.event.dto.seat.response.RemainSeatResponse;
+import org.flab.api.domain.event.dto.event.musical.CastResponse;
+import org.flab.api.domain.event.dto.seat.RemainSeatResponse;
 import org.flab.api.domain.event.dto.show.ShowListResponse;
 import org.flab.api.domain.event.dto.show.ShowResponse;
 import org.flab.api.domain.event.dto.show.ShowSimpleResponse;

@@ -2,8 +2,8 @@ package org.flab.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.flab.api.BaseIntegrationTest;
-import org.flab.api.domain.event.dto.seat.request.SeatRequest;
-import org.flab.api.domain.event.dto.seat.request.SeatSelectRequest;
+import org.flab.api.domain.event.dto.seat.SeatRequest;
+import org.flab.api.domain.event.dto.seat.SeatSelectRequest;
 import org.flab.api.domain.reservation.domain.ReservationStatus;
 import org.flab.api.domain.reservation.dto.request.ReservationCreateRequest;
 import org.flab.api.domain.reservation.dto.request.ReservationSeatRequest;

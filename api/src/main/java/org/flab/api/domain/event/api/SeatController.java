@@ -1,6 +1,6 @@
 package org.flab.api.domain.event.api;
 
-import org.flab.api.domain.event.dto.seat.response.SeatListResponse;
+import org.flab.api.domain.event.dto.seat.SeatListResponse;
 import org.flab.api.global.dummyGenerator.SeatDummyGenerator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

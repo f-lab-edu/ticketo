@@ -1,7 +1,7 @@
 package org.flab.api.service;
 
-import org.flab.api.domain.event.domain.EventType;
-import org.flab.api.domain.event.repository.EventRepository;
+import org.flab.api.domain.event.domain.event.EventType;
+import org.flab.api.domain.event.repository.event.EventRepository;
 import org.flab.api.domain.event.service.EventService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.InvalidEventTypeException;
