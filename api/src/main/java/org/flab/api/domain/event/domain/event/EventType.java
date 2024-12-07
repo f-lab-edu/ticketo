@@ -8,7 +8,7 @@ import java.util.Arrays;
 public enum EventType {
     CONCERT, MUSICAL;
 
-    public static EventType validateEventType(String eventType) {
+    public static EventType validate(String eventType) {
         return Arrays.stream(EventType.values())
                 .filter(type -> type.name().equalsIgnoreCase(eventType))
                 .findFirst()

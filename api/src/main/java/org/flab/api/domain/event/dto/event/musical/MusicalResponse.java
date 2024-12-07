@@ -3,7 +3,9 @@ package org.flab.api.domain.event.dto.event.musical;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.flab.api.domain.event.domain.event.musical.Character;
 import org.flab.api.domain.event.domain.event.musical.Musical;
+import org.flab.api.domain.event.domain.show.ShowCast;
 import org.flab.api.domain.event.dto.event.EventCategoryResponse;
 import org.flab.api.domain.event.dto.event.EventImageResponse;
 import org.flab.api.domain.event.dto.event.EventResponse;
@@ -18,7 +20,7 @@ public class MusicalResponse extends EventResponse {
     private Integer interMissionTime;
     private List<CharacterResponse> casts;
 
-    public MusicalResponse(Musical musical) {
+    public MusicalResponse(Musical musical, List<Character> characterList, List<ShowCast> castList) {
         super(musical.getId(), musical.getName(), musical.getType(), musical.getEventPeriod().getStartDateTime(), musical.getEventPeriod().getEndDateTime(),
                 musical.getRunningTime(), musical.getDescription(), musical.getReservationPeriod().getStartDateTime(), musical.getReservationPeriod().getEndDateTime(),
                 musical.getHasPreReservation(),
@@ -28,8 +30,8 @@ public class MusicalResponse extends EventResponse {
                 new RegionResponse(musical.getRegion()), new EventImageResponse(musical.getImage())
         );
         this.interMissionTime= musical.getIntermissionTime();
-        this.casts = musical.getCharacterList().stream()
-                        .map(CharacterResponse::new)
+        this.casts = characterList.stream()
+                        .map(character -> new CharacterResponse(character, castList))
                         .toList();
     }
 }
