@@ -91,7 +91,7 @@ public class ShowServiceTest {
 
     @Test
     @DisplayName("회차 조회 - 없는 회차 조회")
-    public void getShowByIdAndEventIdTestNotShow() {
+    public void getShowByIdAndEventIdTestNoShow() {
         // given
         given(showRepository.findById(anyLong())).willReturn(Optional.empty());
 
@@ -104,8 +104,8 @@ public class ShowServiceTest {
     }
 
     @Test
-    @DisplayName("회차 조회 - 다른_이벤트_아이디로_조회")
-    public void 다른_이벤트_아이디로_조회() {
+    @DisplayName("회차 조회 - 다른 이벤트 아이디로 조회")
+    public void getShowByIdAndEventIdTestOtherEventId() {
         // given
         long showId = 1L;
         long actualEventId = 2L;

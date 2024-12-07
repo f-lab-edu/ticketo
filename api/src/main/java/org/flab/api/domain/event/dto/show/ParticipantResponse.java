@@ -1,10 +1,13 @@
 package org.flab.api.domain.event.dto.show;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.flab.api.domain.event.domain.event.concert.Artist;
 import org.flab.api.domain.event.domain.show.ShowCast;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ParticipantResponse {
 
     private Long id;

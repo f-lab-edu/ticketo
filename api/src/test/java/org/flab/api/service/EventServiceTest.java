@@ -1,10 +1,9 @@
 package org.flab.api.service;
 
-import org.flab.api.domain.event.domain.event.EventType;
+import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.repository.event.EventRepository;
 import org.flab.api.domain.event.service.EventService;
 import org.flab.api.global.exception.ErrorCode;
-import org.flab.api.global.exception.InvalidEventTypeException;
 import org.flab.api.global.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,50 +31,34 @@ public class EventServiceTest {
     private EventService target;
 
     @Test
-    @DisplayName("이벤트 타입 조회")
-    public void getEventType() {
+    @DisplayName("이벤트 조회")
+    public void getEvent() {
         // given
         long eventId = 1L;
-        EventType type = EventType.CONCERT;
-        given(eventRepository.findEventTypeById(eventId)).willReturn(Optional.of(type));
+        Event mockEvent = mock(Event.class);
+        given(mockEvent.getId()).willReturn(eventId);
+        given(eventRepository.findById(eventId)).willReturn(Optional.of(mockEvent));
 
         // when
-        EventType eventType = target.getTypeById(eventId);
+        Event event = target.getEvent(eventId);
 
         // then
-        verify(eventRepository).findEventTypeById(eventId);
-        assertThat(eventType.name()).isEqualTo(EventType.CONCERT.name());
+        verify(eventRepository).findById(eventId);
+        assertThat(event.getId()).isEqualTo(eventId);
     }
-
-    @Test
-    @DisplayName("유효하지 않은 이벤트 타입 조회 시 예외 발생")
-    public void getEventTypeByIdWithInvalidEventType() {
-        // given
-        long eventId = 1L;
-        EventType type = mock(EventType.class);
-        given(type.name()).willReturn("INVALID_TYPE");
-        given(eventRepository.findEventTypeById(eventId)).willReturn(Optional.of(type));
-
-        // when
-        InvalidEventTypeException exception = assertThrows(InvalidEventTypeException.class, () -> target.getTypeById(eventId));
-
-        // then
-        verify(eventRepository).findEventTypeById(eventId);
-        assertThat(exception.getErrorCode()).isEqualTo(ErrorCode.INVALID_EVENT_TYPE);
-    }
-
+    // 이벤트 조회 - 존재하지 않는 이벤트
     @Test
     @DisplayName("존재하지 않는 이벤트의 타입 조회 시 예외 발생")
     public void getEventTypeByIdWithNoEvent() {
         // given
         long eventId = 1L;
-        given(eventRepository.findEventTypeById(eventId)).willReturn(Optional.empty());
+        given(eventRepository.findById(eventId)).willReturn(Optional.empty());
 
         // when
-        NotFoundException exception = assertThrows(NotFoundException.class, () -> target.getTypeById(eventId));
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> target.getEvent(eventId));
 
         // then
-        verify(eventRepository).findEventTypeById(eventId);
+        verify(eventRepository).findById(eventId);
         assertThat(exception.getErrorCode()).isEqualTo(ErrorCode.EVENT_NOT_FOUND);
     }
 }
