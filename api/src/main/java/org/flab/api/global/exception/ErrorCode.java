@@ -19,6 +19,15 @@ public enum ErrorCode {
 
     // show
     , SHOW_NOT_FOUND("SHOW-0001", "존재하지 않는 회차입니다.")
+
+    // place
+    , PLACE_NOT_FOUND("PLACE-0001", "존재하지 않는 장소입니다.")
+    
+    // region
+    , REGION_NOT_FOUND("REGION-0001", "존재하지 않는 지역입니다.")
+
+    // category
+    , CATEGORY_NOT_FOUND("CATEGORY-0001", "존재하지 않는 카테고리입니다.")
     ;
 
     private final String message;

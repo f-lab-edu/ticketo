@@ -9,8 +9,6 @@ import org.flab.api.global.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Service
 @Transactional(readOnly = true)
@@ -20,11 +18,10 @@ public class EventService {
 
     public EventType getTypeById(long eventId) {
         EventType type = eventRepository.findEventTypeById(eventId).orElseThrow(() -> new NotFoundException(ErrorCode.EVENT_NOT_FOUND));
-        return  EventType.validateEventType(type.name());
+        return EventType.validate(type.name());
     }
 
     public Event getEvent(long eventId) {
-        Optional<Event> event = eventRepository.findEventWithRelationEntity(eventId);
-        return event.orElseThrow(() -> new NotFoundException(ErrorCode.EVENT_NOT_FOUND));
+      return eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException(ErrorCode.EVENT_NOT_FOUND));
     }
 }

@@ -3,26 +3,27 @@ package org.flab.api.domain.event.api;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.event.Event;
-import org.flab.api.domain.event.domain.event.EventType;
+import org.flab.api.domain.event.domain.event.concert.Artist;
 import org.flab.api.domain.event.domain.event.concert.Concert;
+import org.flab.api.domain.event.domain.event.musical.Character;
 import org.flab.api.domain.event.domain.event.musical.Musical;
+import org.flab.api.domain.event.domain.show.ShowCast;
 import org.flab.api.domain.event.domain.seat.DiscountPolicy;
 import org.flab.api.domain.event.domain.seat.Grade;
-import org.flab.api.domain.event.dto.event.EventRequestParams;
-import org.flab.api.domain.event.dto.event.MembershipRequest;
 import org.flab.api.domain.event.dto.event.EventListResponse;
+import org.flab.api.domain.event.dto.event.EventRequestParams;
 import org.flab.api.domain.event.dto.event.EventResponse;
+import org.flab.api.domain.event.dto.event.MembershipRequest;
 import org.flab.api.domain.event.dto.event.concert.ConcertResponse;
 import org.flab.api.domain.event.dto.event.musical.MusicalResponse;
 import org.flab.api.domain.event.dto.seat.DiscountPolicyResponse;
 import org.flab.api.domain.event.dto.seat.EventPriceListResponse;
 import org.flab.api.domain.event.dto.seat.SeatGradeResponse;
-import org.flab.api.domain.event.service.ConcertService;
+import org.flab.api.domain.event.service.ArtistService;
+import org.flab.api.domain.event.service.CharacterService;
 import org.flab.api.domain.event.service.EventService;
-import org.flab.api.domain.event.service.MusicalService;
+import org.flab.api.domain.event.service.ShowCastService;
 import org.flab.api.global.common.ListRequestParams;
-import org.flab.api.global.exception.ErrorCode;
-import org.flab.api.global.exception.InvalidEventTypeException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,8 +44,9 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
-    private final MusicalService musicalService;
-    private final ConcertService concertService;
+    private final ArtistService artistService;
+    private final CharacterService characterService;
+    private final ShowCastService showCastService;
 
     @GetMapping
     public ResponseEntity<EventListResponse> getEventList(@ModelAttribute ListRequestParams requestParam, @ModelAttribute @Valid EventRequestParams eventRequestParams) {
@@ -71,10 +73,10 @@ public class EventController {
     }
 
     private EventResponse getEventResponse(long eventId) {
-        EventType type =  eventService.getTypeById(eventId);
-        return switch (type) {
-            case CONCERT -> convertToEventResponse(concertService.getConcert(eventId));
-            case MUSICAL -> convertToEventResponse(musicalService.getMusical(eventId));
+        Event event =  eventService.getEvent(eventId);
+        return switch (event.getType()) {
+            case CONCERT -> convertToConcertResponse(event);
+            case MUSICAL -> convertToMusicalResponse(event);
         };
     }
 
@@ -102,13 +104,15 @@ public class EventController {
         return discountPolicyList.stream().map(discountPolicy -> new DiscountPolicyResponse(discountPolicy, basePrice)).toList();
     }
 
-    private EventResponse convertToEventResponse(Event event) {
-        if(event instanceof Musical musical) {
-            return new MusicalResponse(musical);
-        } else if(event instanceof Concert concert) {
-            return new ConcertResponse(concert);
-        } else {
-            throw new InvalidEventTypeException(ErrorCode.INVALID_EVENT_TYPE);
-        }
+    private EventResponse convertToConcertResponse(Event event) {
+        List<Artist> artistList = artistService.getArtistListByEventId(event.getId());
+        return new ConcertResponse((Concert) event, artistList);
+    }
+
+    private EventResponse convertToMusicalResponse(Event event) {
+        List<Character> characterList = characterService.getCharacterListByEventId(event.getId());
+        List<ShowCast> castList = showCastService.getShowCastListWithActorByCharacterList(characterList);
+        return new MusicalResponse((Musical) event, characterList, castList);
+
     }
 }
