@@ -46,12 +46,6 @@ public class Show {
     @OneToMany(mappedBy = "show", fetch = FetchType.LAZY)
     private List<Seat> seatList;
 
-    @OneToMany(mappedBy = "show", fetch = FetchType.LAZY)
-    private List<ShowCast> showCastList;
-
-    @OneToMany(mappedBy = "show", fetch = FetchType.LAZY)
-    private List<ShowArtist> showArtistList;
-
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "startDateTime", column = @Column(name = "reservation_start_datetime"))
