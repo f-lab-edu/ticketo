@@ -3,8 +3,6 @@ package org.flab.api.domain.event.api;
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.event.EventType;
 import org.flab.api.domain.event.domain.seat.Grade;
-import org.flab.api.domain.event.domain.seat.SeatList;
-import org.flab.api.domain.event.domain.seat.SeatStatus;
 import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.dto.seat.RemainSeatResponse;
 import org.flab.api.domain.event.dto.show.ParticipantResponse;
@@ -12,6 +10,7 @@ import org.flab.api.domain.event.dto.show.ShowListResponse;
 import org.flab.api.domain.event.dto.show.ShowResponse;
 import org.flab.api.domain.event.dto.show.ShowSimpleResponse;
 import org.flab.api.domain.event.service.ArtistService;
+import org.flab.api.domain.event.service.GradeService;
 import org.flab.api.domain.event.service.SeatService;
 import org.flab.api.domain.event.service.ShowCastService;
 import org.flab.api.domain.event.service.ShowService;
@@ -30,9 +29,11 @@ import java.util.List;
 public class ShowController {
 
     private final ShowService showService;
-    private final SeatService seatService;
     private final ArtistService artistService;
     private final ShowCastService showCastService;
+    private final SeatService seatService;
+    private final GradeService gradeService;
+
 
     @GetMapping
     public ResponseEntity<ShowListResponse> getShowListResponse(@PathVariable("eventId") long eventId) {
@@ -44,12 +45,11 @@ public class ShowController {
 
     @GetMapping("/{showId}")
     public ResponseEntity<ShowResponse> getShowResponse(@PathVariable("eventId") long eventId, @PathVariable("showId") long showId) {
-        Show show = showService.getShowByIdAndEventId(showId, eventId);
-        SeatList seatList =  seatService.getSeatListByShowIdAndStatus(showId, SeatStatus.AVAILABLE);
-        List<Grade> gradeList = show.getEvent().getGradeList();
+        Show show = showService.getShow(showId, eventId);
+        List<Grade> gradeList = gradeService.getGradeList(eventId);
         List<RemainSeatResponse> remainSeatResponseList = gradeList.stream()
                 .map(grade ->
-                    new RemainSeatResponse(grade, seatList.countSeatByGradeId(grade.getId())
+                    new RemainSeatResponse(grade, seatService.countAvailableSeats(showId, grade.getId())
                 )).toList();
 
         ShowResponse response = getShowResponse(eventId, show, remainSeatResponseList);
