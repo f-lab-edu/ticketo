@@ -24,6 +24,8 @@ import org.flab.api.domain.event.service.CharacterService;
 import org.flab.api.domain.event.service.EventService;
 import org.flab.api.domain.event.service.ShowCastService;
 import org.flab.api.global.common.ListRequestParams;
+import org.flab.api.global.exception.ErrorCode;
+import org.flab.api.global.exception.InvalidEventTypeException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,6 +79,7 @@ public class EventController {
         return switch (event.getType()) {
             case CONCERT -> convertToConcertResponse(event);
             case MUSICAL -> convertToMusicalResponse(event);
+            default -> throw new InvalidEventTypeException(ErrorCode.INVALID_EVENT_TYPE);
         };
     }
 

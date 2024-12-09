@@ -14,13 +14,14 @@ import org.flab.api.domain.event.service.GradeService;
 import org.flab.api.domain.event.service.SeatService;
 import org.flab.api.domain.event.service.ShowCastService;
 import org.flab.api.domain.event.service.ShowService;
+import org.flab.api.global.exception.ErrorCode;
+import org.flab.api.global.exception.InvalidEventTypeException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -62,12 +63,12 @@ public class ShowController {
     }
 
     private List<ParticipantResponse> getPerformerResponseList(EventType type, Long eventId, Long showId) {
-        List<ParticipantResponse> participantResponseList = new ArrayList<>();
-        if(EventType.CONCERT.equals(type)) {
-           participantResponseList = artistService.getArtistListByEventId(eventId).stream().map(ParticipantResponse::new).toList();
-        } else if(EventType.MUSICAL.equals(type)) {
-           participantResponseList = showCastService.getShowCastListWithActorByShowId(showId).stream().map(ParticipantResponse::new).toList();
-        }
-        return participantResponseList;
+        return switch (type) {
+            case EventType.CONCERT ->
+                    artistService.getArtistListByEventId(eventId).stream().map(ParticipantResponse::new).toList();
+            case EventType.MUSICAL ->
+                    showCastService.getShowCastListWithActorByShowId(showId).stream().map(ParticipantResponse::new).toList();
+            default -> throw new InvalidEventTypeException(ErrorCode.INVALID_EVENT_TYPE);
+        };
     }
 }
