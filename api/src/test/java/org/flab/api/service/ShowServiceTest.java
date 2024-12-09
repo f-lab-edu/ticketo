@@ -70,7 +70,7 @@ public class ShowServiceTest {
 
     @Test
     @DisplayName("회차 조회")
-    public void getShowByIdAndEventIdTest() {
+    public void getShowTest() {
         // given
         long showId = 1L;
         long eventId = 1L;
@@ -81,7 +81,7 @@ public class ShowServiceTest {
         given(showRepository.findById(showId)).willReturn(Optional.of(showMock));
 
         // when
-        Show show = target.getShowByIdAndEventId(showId, eventId);
+        Show show = target.getShow(showId, eventId);
 
         // then
         verify(showRepository).findById(showId);
@@ -96,7 +96,7 @@ public class ShowServiceTest {
         given(showRepository.findById(anyLong())).willReturn(Optional.empty());
 
         // when
-        NotFoundException exception = assertThrows(NotFoundException.class, () -> target.getShowByIdAndEventId(404L, 1L));
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> target.getShow(404L, 1L));
 
         // then
         verify(showRepository).findById(anyLong());
@@ -117,7 +117,7 @@ public class ShowServiceTest {
         given(showRepository.findById(showId)).willReturn(Optional.of(showMock));
 
         // when
-        InvalidShowException exception = assertThrows(InvalidShowException.class, () -> target.getShowByIdAndEventId(showId, wrongEventId));
+        InvalidShowException exception = assertThrows(InvalidShowException.class, () -> target.getShow(showId, wrongEventId));
 
         // then
         verify(showRepository).findById(showId);

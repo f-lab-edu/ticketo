@@ -24,8 +24,8 @@ public class MusicalResponse extends EventResponse {
         super(musical.getId(), musical.getName(), musical.getType(), musical.getEventPeriod().getStartDateTime(), musical.getEventPeriod().getEndDateTime(),
                 musical.getRunningTime(), musical.getDescription(), musical.getReservationPeriod().getStartDateTime(), musical.getReservationPeriod().getEndDateTime(),
                 musical.getHasPreReservation(),
-                musical.getHasPreReservation() ? musical.getNullablePeriod().getStartDateTime() : null,
-                musical.getHasPreReservation() ? musical.getNullablePeriod().getEndDateTime() : null,
+                musical.getHasPreReservation() ? musical.getPreReservationPeriod().getStartDateTime() : null,
+                musical.getHasPreReservation() ? musical.getPreReservationPeriod().getEndDateTime() : null,
                 new EventCategoryResponse(musical.getCategory()), new PlaceResponse(musical.getPlace()),
                 new RegionResponse(musical.getRegion()), new EventImageResponse(musical.getImage())
         );

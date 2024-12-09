@@ -25,8 +25,8 @@ public class ConcertResponse extends EventResponse {
         super(concert.getId(), concert.getName(), concert.getType(), concert.getEventPeriod().getStartDateTime(), concert.getEventPeriod().getEndDateTime(),
                 concert.getRunningTime(), concert.getDescription(), concert.getReservationPeriod().getStartDateTime(), concert.getReservationPeriod().getEndDateTime(),
                 concert.getHasPreReservation(),
-                concert.getHasPreReservation() ? concert.getNullablePeriod().getStartDateTime() : null,
-                concert.getHasPreReservation() ? concert.getNullablePeriod().getEndDateTime() : null,
+                concert.getHasPreReservation() ? concert.getPreReservationPeriod().getStartDateTime() : null,
+                concert.getHasPreReservation() ? concert.getPreReservationPeriod().getEndDateTime() : null,
                 new EventCategoryResponse(concert.getCategory()), new PlaceResponse(concert.getPlace()),
                 new RegionResponse(concert.getRegion()), new EventImageResponse(concert.getImage())
         );
