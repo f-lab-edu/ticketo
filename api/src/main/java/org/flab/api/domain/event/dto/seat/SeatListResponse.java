@@ -9,5 +9,5 @@ import java.util.List;
 @Getter
 public class SeatListResponse {
     private long placeId;
-    private List<AreaResponse> areas;
+    private List<ZoneResponse> zones;
 }

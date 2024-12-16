@@ -7,8 +7,10 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class RowResponse {
-    private int rowIndex;
-    private int seatCount;
+public class ZoneResponse {
+    private long zoneId;
+    private String zoneName;
+    private int rows;
+    private int cols;
     private List<SeatResponse> seats;
 }
