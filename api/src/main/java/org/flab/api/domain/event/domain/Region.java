@@ -1,4 +1,4 @@
-package org.flab.api.domain.event.domain.event;
+package org.flab.api.domain.event.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
