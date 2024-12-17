@@ -3,7 +3,7 @@ package org.flab.api.service;
 import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.show.ShowRepository;
-import org.flab.api.domain.event.service.ShowService;
+import org.flab.api.domain.event.service.show.ShowService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.NotFoundException;
 import org.flab.api.global.exception.InvalidShowException;

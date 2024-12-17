@@ -1,4 +1,4 @@
-package org.flab.api.domain.event.service;
+package org.flab.api.domain.event.service.event;
 
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.event.musical.Character;

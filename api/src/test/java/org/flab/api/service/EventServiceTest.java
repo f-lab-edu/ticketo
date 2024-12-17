@@ -2,7 +2,7 @@ package org.flab.api.service;
 
 import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.repository.event.EventRepository;
-import org.flab.api.domain.event.service.EventService;
+import org.flab.api.domain.event.service.event.EventService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.NotFoundException;
 import org.junit.jupiter.api.DisplayName;
