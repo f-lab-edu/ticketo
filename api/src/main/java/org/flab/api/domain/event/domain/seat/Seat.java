@@ -11,7 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.flab.api.domain.event.domain.show.Show;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,6 +21,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -36,15 +39,11 @@ public class Seat {
     @JoinColumn(name = "zone_id")
     private Zone zone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "grade_id")
-    private Grade grade;
-
     @Column(name="row_number")
-    private Integer rowNumber;
+    private Long rowNumber;
 
-    @Column(name = "seat_number")
-    private Integer seatNumber;
+    @Column(name = "col_number")
+    private Long colNumber;
 
     @Enumerated(EnumType.STRING)
     private SeatStatus status;
@@ -56,4 +55,12 @@ public class Seat {
     @Column(name = "updated_at")
     @LastModifiedDate
     private ZonedDateTime updatedAt;
+
+    public Seat(Show show, Zone zone, Long rowNumber, Long colNumber, SeatStatus status) {
+        this.show = show;
+        this.zone = zone;
+        this.rowNumber = rowNumber;
+        this.colNumber = colNumber;
+        this.status = status;
+    }
 }

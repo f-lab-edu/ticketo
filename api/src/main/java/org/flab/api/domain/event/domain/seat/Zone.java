@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
-import org.flab.api.domain.event.domain.event.Event;
+import org.flab.api.domain.event.domain.Place;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,12 +30,19 @@ public class Zone {
     @Column(name = "name")
     private String name;
 
-    @Column(name="row_count")
-    private int rowCount;
+    @Column(name="rows")
+    private int rows;
+
+    @Column(name ="cols")
+    private int cols;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @JoinColumn(name = "place_id")
+    private Place place;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "grade_id")
+    private Grade grade;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
