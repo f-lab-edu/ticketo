@@ -49,11 +49,12 @@ public class Seat {
     @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
 
-    public Seat(Show show, Zone zone, Long rowNumber, Long colNumber, SeatStatus status) {
+    public Seat(Show show, Zone zone, Long rowNumber, Long colNumber, SeatStatus status, ZonedDateTime createdAt) {
         this.show = show;
         this.zone = zone;
         this.rowNumber = rowNumber;
         this.colNumber = colNumber;
         this.status = status;
+        this.createdAt = createdAt;
     }
 }

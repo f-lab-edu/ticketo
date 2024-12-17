@@ -1,4 +1,4 @@
-package org.flab.api.global.config;
+package org.flab.api.global.cache;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
@@ -18,7 +18,7 @@ import java.time.Duration;
 @Configuration
 public class RedisConfig {
 
-    @Value("${spring.data.redis.host")
+    @Value("${spring.data.redis.host}")
     private String  host;
 
     @Value("${spring.data.redis.port}")
@@ -47,12 +47,14 @@ public class RedisConfig {
 
     @Bean
     public CacheManager cacheManager() {
+
         RedisCacheManager.RedisCacheManagerBuilder builder =
                 RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(redisConnectionFactory());
 
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())) // Value Serializer 변경
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .disableCachingNullValues()
+                .prefixCacheNameWith(CacheConstant.TICKETO +"::")
                 .entryTtl(Duration.ofMinutes(30L));
 
         builder.cacheDefaults(configuration);
@@ -60,8 +62,4 @@ public class RedisConfig {
         return builder.build();
     }
 
-//    @Bean
-//    public KeyGenerator cacheKeyGenerator() {
-//        return new CacheKeyGenerator();
-//    }
 }
