@@ -6,7 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -29,9 +28,6 @@ import org.flab.api.domain.event.domain.Region;
 import org.flab.api.domain.event.domain.seat.DiscountPolicy;
 import org.flab.api.domain.event.domain.seat.Grade;
 import org.hibernate.annotations.Formula;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -43,7 +39,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="type")
 @Table(name = "event")
-@EntityListeners(AuditingEntityListener.class)
 public class Event {
 
     @Id
@@ -110,10 +105,8 @@ public class Event {
     private List<DiscountPolicy> discountPolicyList;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    @CreatedDate
     private ZonedDateTime createdAt;
 
     @Column(name = "updated_at")
-    @LastModifiedDate
     private ZonedDateTime updatedAt;
 }
