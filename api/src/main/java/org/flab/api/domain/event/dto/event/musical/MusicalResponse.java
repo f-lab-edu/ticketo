@@ -9,8 +9,8 @@ import org.flab.api.domain.event.domain.show.ShowCast;
 import org.flab.api.domain.event.dto.event.EventCategoryResponse;
 import org.flab.api.domain.event.dto.event.EventImageResponse;
 import org.flab.api.domain.event.dto.event.EventResponse;
-import org.flab.api.domain.event.dto.event.PlaceResponse;
-import org.flab.api.domain.event.dto.event.RegionResponse;
+import org.flab.api.domain.place.dto.PlaceResponse;
+import org.flab.api.domain.region.dto.RegionResponse;
 
 import java.util.List;
 

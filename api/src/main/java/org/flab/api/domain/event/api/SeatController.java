@@ -15,11 +15,7 @@ public class SeatController {
 
     @GetMapping
     public ResponseEntity<SeatListResponse> getSeatList(@RequestParam(value = "areaId", required = false) Long areaId, @PathVariable String eventId) {
-//        SeatListResponse response = SeatDummyGenerator.generateSeatListDummy();
-//        if(areaId != null) {
-//            response = SeatDummyGenerator.generateSeatListInAreaDummy("A3");
-//        }
-
-        return ResponseEntity.ok(null);
+        SeatListResponse response = null;
+        return ResponseEntity.ok(response);
     }
 }

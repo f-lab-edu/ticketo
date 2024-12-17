@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
-import org.flab.api.domain.event.domain.Place;
+import org.flab.api.domain.place.domain.Place;
 
 import java.time.ZonedDateTime;
 

@@ -1,6 +1,6 @@
 package org.flab.api.service;
 
-import org.flab.api.domain.event.domain.Place;
+import org.flab.api.domain.place.domain.Place;
 import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.domain.seat.Grade;
 import org.flab.api.domain.event.domain.seat.GradeId;

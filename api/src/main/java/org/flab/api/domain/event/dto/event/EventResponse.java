@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.flab.api.domain.event.domain.event.EventType;
+import org.flab.api.domain.place.dto.PlaceResponse;
+import org.flab.api.domain.region.dto.RegionResponse;
 
 import java.time.ZonedDateTime;
 
