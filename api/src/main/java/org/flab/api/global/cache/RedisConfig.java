@@ -14,6 +14,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Configuration
 public class RedisConfig {
@@ -51,11 +52,14 @@ public class RedisConfig {
         RedisCacheManager.RedisCacheManagerBuilder builder =
                 RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(redisConnectionFactory());
 
+        Duration baseTTL = Duration.ofMinutes(30L);
+        long randomSeconds = ThreadLocalRandom.current().nextLong(30, 300);
+
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
                 .disableCachingNullValues()
                 .prefixCacheNameWith(CacheConstant.TICKETO +"::")
-                .entryTtl(Duration.ofMinutes(30L));
+                .entryTtl(baseTTL.plusSeconds(randomSeconds));
 
         builder.cacheDefaults(configuration);
 
