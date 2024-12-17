@@ -13,8 +13,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.ZonedDateTime;
 
@@ -37,11 +35,9 @@ public class Category {
     private Category parent;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    @CreatedDate
     private ZonedDateTime createdAt;
 
     @Column(name = "updated_at")
-    @LastModifiedDate
     private ZonedDateTime updatedAt;
 
     public boolean isTopCategory() {

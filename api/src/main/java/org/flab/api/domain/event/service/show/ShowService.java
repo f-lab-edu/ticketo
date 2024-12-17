@@ -1,4 +1,4 @@
-package org.flab.api.domain.event.service;
+package org.flab.api.domain.event.service.show;
 
 import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.show.Show;
@@ -26,7 +26,7 @@ public class ShowService {
         return showList;
     }
 
-    public Show getShow(long showId, long eventId) {
+    public Show getShow(long eventId, long showId) {
         Show show = showRepository.findById(showId).orElseThrow(() -> new NotFoundException(ErrorCode.SHOW_NOT_FOUND));
         if(show.getEvent().getId() != eventId) {
             throw new InvalidShowException(ErrorCode.INVALID_EVENT_SHOW);

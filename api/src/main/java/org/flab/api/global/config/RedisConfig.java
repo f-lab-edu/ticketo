@@ -1,9 +1,7 @@
 package org.flab.api.global.config;
 
-import org.flab.api.global.cache.CacheKeyGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -62,8 +60,8 @@ public class RedisConfig {
         return builder.build();
     }
 
-    @Bean
-    public KeyGenerator cacheKeyGenerator() {
-        return new CacheKeyGenerator();
-    }
+//    @Bean
+//    public KeyGenerator cacheKeyGenerator() {
+//        return new CacheKeyGenerator();
+//    }
 }

@@ -2,7 +2,6 @@ package org.flab.api.domain.event.domain.seat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -15,16 +14,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.flab.api.domain.event.domain.show.Show;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.ZonedDateTime;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 public class Seat {
 
     @Id
@@ -49,11 +44,9 @@ public class Seat {
     private SeatStatus status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    @CreatedDate
     private ZonedDateTime createdAt;
 
     @Column(name = "updated_at")
-    @LastModifiedDate
     private ZonedDateTime updatedAt;
 
     public Seat(Show show, Zone zone, Long rowNumber, Long colNumber, SeatStatus status) {

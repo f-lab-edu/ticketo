@@ -3,7 +3,7 @@ package org.flab.api.service;
 import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.show.ShowRepository;
-import org.flab.api.domain.event.service.ShowService;
+import org.flab.api.domain.event.service.show.ShowService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.NotFoundException;
 import org.flab.api.global.exception.InvalidShowException;
@@ -81,7 +81,7 @@ public class ShowServiceTest {
         given(showRepository.findById(showId)).willReturn(Optional.of(showMock));
 
         // when
-        Show show = target.getShow(showId, eventId);
+        Show show = target.getShow(eventId, showId);
 
         // then
         verify(showRepository).findById(showId);
@@ -96,7 +96,7 @@ public class ShowServiceTest {
         given(showRepository.findById(anyLong())).willReturn(Optional.empty());
 
         // when
-        NotFoundException exception = assertThrows(NotFoundException.class, () -> target.getShow(404L, 1L));
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> target.getShow(1L, 404L));
 
         // then
         verify(showRepository).findById(anyLong());
@@ -117,7 +117,7 @@ public class ShowServiceTest {
         given(showRepository.findById(showId)).willReturn(Optional.of(showMock));
 
         // when
-        InvalidShowException exception = assertThrows(InvalidShowException.class, () -> target.getShow(showId, wrongEventId));
+        InvalidShowException exception = assertThrows(InvalidShowException.class, () -> target.getShow(wrongEventId, showId));
 
         // then
         verify(showRepository).findById(showId);
