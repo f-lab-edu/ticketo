@@ -6,6 +6,7 @@ import org.flab.api.domain.event.domain.seat.Seat;
 import org.flab.api.domain.event.domain.seat.SeatStatus;
 import org.flab.api.domain.event.domain.seat.Zone;
 import org.flab.api.domain.event.domain.show.Show;
+import org.flab.api.domain.event.repository.seat.BulkInsertRepository;
 import org.flab.api.domain.event.repository.seat.SeatRepository;
 import org.flab.api.domain.place.domain.Place;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class SeatService {
 
     private final SeatRepository seatRepository;
+    private final BulkInsertRepository bulkInsertRepository;
     private final SeatCacheService seatCacheService;
     private final ZoneService zoneService;
 
@@ -39,9 +41,8 @@ public class SeatService {
 
         seatList = generateSeatListByPlace(show.getEvent().getPlace(), show);
         if(!seatList.isEmpty()) {
-            List<Seat> createdSeatList = seatRepository.saveAll(seatList);
+            bulkInsertRepository.saveAll(seatList);
             seatCacheService.evictPreparedSeatsForShow(show.getId());
-            createdSeatList.forEach(seatCacheService::cacheSeat);
         }
         return seatList;
     }
