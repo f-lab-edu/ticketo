@@ -15,7 +15,7 @@ public class EventService {
 
     private final EventRepository eventRepository;
 
-    public Event getEvent(long eventId) {
-      return eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException(ErrorCode.EVENT_NOT_FOUND));
+    public Event getEvent(Long eventId) {
+        return eventRepository.findById(eventId).orElseThrow(() -> new NotFoundException(ErrorCode.EVENT_NOT_FOUND));
     }
 }

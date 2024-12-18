@@ -1,8 +1,8 @@
-package org.flab.api.domain.event.dto.event;
+package org.flab.api.domain.place.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.flab.api.domain.event.domain.Place;
+import org.flab.api.domain.place.domain.Place;
 
 @AllArgsConstructor
 @Getter

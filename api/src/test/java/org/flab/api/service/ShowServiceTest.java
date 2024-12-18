@@ -3,6 +3,8 @@ package org.flab.api.service;
 import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.show.ShowRepository;
+import org.flab.api.domain.event.service.seat.SeatCacheService;
+import org.flab.api.domain.event.service.seat.SeatService;
 import org.flab.api.domain.event.service.show.ShowService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.NotFoundException;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,6 +33,12 @@ public class ShowServiceTest {
 
     @Mock
     private ShowRepository showRepository;
+
+    @Mock
+    private SeatCacheService seatCacheService;
+
+    @Mock
+    private SeatService seatService;
 
     @InjectMocks
     private ShowService target;
@@ -123,6 +132,55 @@ public class ShowServiceTest {
         verify(showRepository).findById(showId);
         assertThat(exception.getErrorCode()).isEqualTo(ErrorCode.INVALID_EVENT_SHOW);
     }
+
+    @Test
+    @DisplayName("회차 조회 - 좌석 없는 경우 좌석 생성")
+    public void prepareSeatsForShowTest_NoSeats() {
+        // given
+        long eventId = 1L;
+        long showId = 1L;
+        Event mockEvent = mock(Event.class);
+        given(mockEvent.getId()).willReturn(eventId);
+
+        Show mockShow = mock(Show.class);
+        given(mockShow.getId()).willReturn(showId);
+        given(mockShow.getEvent()).willReturn(mockEvent);
+
+        given(showRepository.findById(showId)).willReturn(Optional.of(mockShow));
+        given(seatCacheService.preparedSeatsForShow(showId)).willReturn(false);
+
+        // when
+        target.getShow(eventId, showId);
+
+        // then
+        verify(seatService, times(1)).generateSeatsForShow(mockShow);
+    }
+
+    @Test
+    @DisplayName("회차 조회 - 좌석 있는 경우 좌석 미생성")
+    public void prepareSeatsForShowTest_HasSeats() {
+        // given
+        long eventId = 1L;
+        long showId = 1L;
+        Event mockEvent = mock(Event.class);
+        given(mockEvent.getId()).willReturn(eventId);
+
+        Show mockShow = mock(Show.class);
+        given(mockShow.getId()).willReturn(showId);
+        given(mockShow.getEvent()).willReturn(mockEvent);
+
+        given(showRepository.findById(showId)).willReturn(Optional.of(mockShow));
+        given(seatCacheService.preparedSeatsForShow(showId)).willReturn(true);
+
+        // when
+        target.getShow(eventId, showId);
+
+        // then
+        verify(seatService, times(0)).generateSeatsForShow(mockShow);
+    }
+
+
+
 
     private List<Show> createShowListMock(long eventId) {
         Show mockShow1 = mock(Show.class);
