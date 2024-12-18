@@ -1,7 +1,6 @@
 package org.flab.api.domain.event.service.seat;
 
 import lombok.RequiredArgsConstructor;
-import org.flab.api.domain.event.domain.seat.Seat;
 import org.flab.api.domain.event.dto.seat.SeatResponse;
 import org.flab.api.domain.event.repository.seat.SeatRepository;
 import org.flab.api.global.cache.CacheConstant;
@@ -25,11 +24,6 @@ public class SeatCacheService {
     @CacheEvict(value = CacheConstant.SHOW, key="T(org.flab.api.global.cache.CacheKeyGenerator).preparedSeatsForShowKeyGenerate(#showId)")
     public void evictPreparedSeatsForShow(Long showId) {
 
-    }
-
-    @Cacheable(value = CacheConstant.SEAT, key = "#seat.id")
-    public SeatResponse cacheSeat(Seat seat) {
-        return new SeatResponse(seat);
     }
 
     @Cacheable(value = CacheConstant.SEAT, key = "#seatId")

@@ -41,6 +41,7 @@ public class Seat {
     private Long colNumber;
 
     @Enumerated(EnumType.STRING)
+    @Column(name ="status")
     private SeatStatus status;
 
     @Column(name = "created_at", nullable = false, updatable = false)
