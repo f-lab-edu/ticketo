@@ -31,17 +31,19 @@ public class SeatService {
      * @param show 공연 회차
      */
     @Transactional
-    public void generateSeatsForShow(Show show) {
+    public List<Seat> generateSeatsForShow(Show show) {
+        List<Seat> seatList = new ArrayList<>();
         if(seatCacheService.preparedSeatsForShow(show.getId())) {
-           return;
+           return seatList;
         };
 
-        List<Seat> seatList = generateSeatListByPlace(show.getEvent().getPlace(), show);
+        seatList = generateSeatListByPlace(show.getEvent().getPlace(), show);
         if(!seatList.isEmpty()) {
             List<Seat> createdSeatList = seatRepository.saveAll(seatList);
             seatCacheService.evictPreparedSeatsForShow(show.getId());
             createdSeatList.forEach(seatCacheService::cacheSeat);
         }
+        return seatList;
     }
 
     /**

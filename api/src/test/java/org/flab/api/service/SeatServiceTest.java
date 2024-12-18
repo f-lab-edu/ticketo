@@ -1,15 +1,17 @@
 package org.flab.api.service;
 
-import org.flab.api.domain.place.domain.Place;
 import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.domain.seat.Grade;
 import org.flab.api.domain.event.domain.seat.GradeId;
+import org.flab.api.domain.event.domain.seat.Seat;
 import org.flab.api.domain.event.domain.seat.SeatStatus;
 import org.flab.api.domain.event.domain.seat.Zone;
 import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.seat.SeatRepository;
+import org.flab.api.domain.event.service.seat.SeatCacheService;
 import org.flab.api.domain.event.service.seat.SeatService;
 import org.flab.api.domain.event.service.seat.ZoneService;
+import org.flab.api.domain.place.domain.Place;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,8 +39,47 @@ public class SeatServiceTest {
     @Mock
     private ZoneService zoneService;
 
+    @Mock
+    private SeatCacheService seatCacheService;
+
     @InjectMocks
     private SeatService target;
+
+    @Test
+    @DisplayName("회차 별 좌석 생성")
+    public void generateSeatsForShow() {
+        // given
+        long showId = 1L;
+        long zone1Rows = 10L;
+        long zone2Rows = 15L;
+        long zone1Cols = 20L;
+        long zone2Cols = 20L;
+
+        Zone mockZone1 = mock(Zone.class);
+        Zone mockZone2 = mock(Zone.class);
+        given(mockZone1.getRows()).willReturn(zone1Rows);
+        given(mockZone1.getCols()).willReturn(zone1Cols);
+        given(mockZone2.getRows()).willReturn(zone2Rows);
+        given(mockZone2.getCols()).willReturn(zone2Cols);
+
+        Place mockPlace = mock(Place.class);
+        given(mockPlace.getZoneList()).willReturn(List.of(mockZone1, mockZone2));
+
+        Event mockEvent = mock(Event.class);
+        given(mockEvent.getPlace()).willReturn(mockPlace);
+        Show mockShow = mock(Show.class);
+        given(mockShow.getId()).willReturn(showId);
+        given(mockShow.getEvent()).willReturn(mockEvent);
+
+        given(seatCacheService.preparedSeatsForShow(showId)).willReturn(false);
+
+        // when
+        List<Seat> seatList = target.generateSeatsForShow(mockShow);
+
+        // then
+        long totalSeatCount = zone1Rows * zone1Cols + zone2Rows * zone2Cols;
+        assertThat(seatList.size()).isEqualTo(totalSeatCount);
+    }
 
     @Test
     @DisplayName("등급 별 좌석 수를 담은 Map 반환")
