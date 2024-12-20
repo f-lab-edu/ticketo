@@ -4,7 +4,7 @@ import org.flab.api.domain.event.domain.event.Event;
 import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.show.ShowRepository;
 import org.flab.api.domain.event.service.seat.SeatCacheService;
-import org.flab.api.domain.event.service.seat.SeatService;
+import org.flab.api.domain.event.service.seat.SeatGenerateService;
 import org.flab.api.domain.event.service.show.ShowService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.NotFoundException;
@@ -38,7 +38,7 @@ public class ShowServiceTest {
     private SeatCacheService seatCacheService;
 
     @Mock
-    private SeatService seatService;
+    private SeatGenerateService seatGenerateService;
 
     @InjectMocks
     private ShowService target;
@@ -153,7 +153,7 @@ public class ShowServiceTest {
         target.getShow(eventId, showId);
 
         // then
-        verify(seatService, times(1)).generateSeatsForShow(mockShow);
+        verify(seatGenerateService, times(1)).generateSeatsForShow(mockShow);
     }
 
     @Test
@@ -176,7 +176,7 @@ public class ShowServiceTest {
         target.getShow(eventId, showId);
 
         // then
-        verify(seatService, times(0)).generateSeatsForShow(mockShow);
+        verify(seatGenerateService, times(0)).generateSeatsForShow(mockShow);
     }
 
 

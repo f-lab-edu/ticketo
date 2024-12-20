@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.show.ShowRepository;
 import org.flab.api.domain.event.service.seat.SeatCacheService;
-import org.flab.api.domain.event.service.seat.SeatService;
+import org.flab.api.domain.event.service.seat.SeatGenerateService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.InvalidShowException;
 import org.flab.api.global.exception.NotFoundException;
@@ -20,7 +20,7 @@ public class ShowService {
 
     private final ShowRepository showRepository;
     private final SeatCacheService seatCacheService;
-    private final SeatService seatService;
+    private final SeatGenerateService seatGenerateService;
 
     public List<Show> getShowListByEventId(long eventId) {
         List<Show> showList = showRepository.findAllByEventId(eventId);
@@ -41,7 +41,7 @@ public class ShowService {
 
     private void prepareSeatsForShow(Show show) {
         if(!seatCacheService.preparedSeatsForShow(show.getId())) {
-            seatService.generateSeatsForShow(show);
+            seatGenerateService.generateSeatsForShow(show);
         }
     }
 

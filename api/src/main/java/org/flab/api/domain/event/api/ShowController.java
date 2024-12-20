@@ -11,10 +11,10 @@ import org.flab.api.domain.event.dto.show.ShowListResponse;
 import org.flab.api.domain.event.dto.show.ShowResponse;
 import org.flab.api.domain.event.dto.show.ShowSimpleResponse;
 import org.flab.api.domain.event.service.event.ArtistService;
+import org.flab.api.domain.event.service.seat.GradeService;
+import org.flab.api.domain.event.service.seat.SeatViewService;
 import org.flab.api.domain.event.service.show.ShowCastService;
 import org.flab.api.domain.event.service.show.ShowService;
-import org.flab.api.domain.event.service.seat.GradeService;
-import org.flab.api.domain.event.service.seat.SeatService;
 import org.flab.api.global.exception.ErrorCode;
 import org.flab.api.global.exception.InvalidEventTypeException;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +34,7 @@ public class ShowController {
     private final ShowService showService;
     private final ArtistService artistService;
     private final ShowCastService showCastService;
-    private final SeatService seatService;
+    private final SeatViewService seatViewService;
     private final GradeService gradeService;
 
 
@@ -59,7 +59,7 @@ public class ShowController {
 
     private List<RemainSeatResponse> getRemainSeatResponseList(Long eventId, Show show) {
         List<Grade> gradeList = gradeService.getGradeList(eventId);
-        Map<GradeId, Long> seatCountMap = seatService.getSeatsCountMapByGradeId(show);
+        Map<GradeId, Long> seatCountMap = seatViewService.getSeatsCountMapByGradeId(show);
         return gradeList.stream()
                 .map(grade ->
                         new RemainSeatResponse(grade, seatCountMap.getOrDefault(new GradeId(grade.getId()), 0L)
