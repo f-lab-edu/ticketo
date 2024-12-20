@@ -4,8 +4,11 @@ import org.flab.api.domain.event.domain.seat.Seat;
 import org.flab.api.domain.event.domain.seat.SeatStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface SeatRepository extends JpaRepository<Seat, Long> {
     boolean existsByShowId(Long showId);
     Seat findSeatById(Long seatId);
+    List<Seat> findSeatsByShowIdAndZoneId(Long showId, Long zoneId);
     long countSeatsByStatusAndShowIdAndZoneId(SeatStatus seatStatus, long showId, long zoneId);
 }
