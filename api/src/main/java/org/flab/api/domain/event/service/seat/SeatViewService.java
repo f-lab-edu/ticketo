@@ -17,7 +17,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,35 +35,13 @@ public class SeatViewService {
         return seatRepository.findSeatsByShowIdAndZoneId(showId, zoneId);
     }
 
-
-    /**
-     * 예매 가능한 좌석 수 조회
-     * @param showId 공연 회차 아이디
-     * @param zoneId 공연장 구역 아이디
-     * @return 예매 가능한 좌석 수
-     */
-    public long countAvailableSeatsByZone(long showId, long zoneId) {
-        return seatRepository.countSeatsByStatusAndShowIdAndZoneId(SeatStatus.AVAILABLE, showId, zoneId);
-    }
-
     /**
      * 특정 회차 내 등급 별 예매 가능한 좌석 수 조회
      * @param show 회차
      * @return Map<GradeId,Long> : 좌석 등급 아이디, 좌석 수
      */
-    public Map<GradeId,Long> getSeatsCountMapByGradeId(Show show) {
-        List<Zone> zoneList = zoneService.getZoneList(show.getEvent().getPlace().getId());
-        Map<GradeId, Long> map = new HashMap<>();
-        for(Zone zone : zoneList) {
-            GradeId gradeId = new GradeId(zone.getGrade().getId());
-            long count = countAvailableSeatsByZone(show.getId(), zone.getId());
-            if(map.containsKey(gradeId)) {
-                map.put(gradeId, map.get(gradeId) + count);
-            } else {
-                map.put(gradeId, count);
-            }
-        }
-        return map;
+    public Map<GradeId,Long> getSeatsCountMapByGradeId(List<Long> gradeIdList, Show show) {// event 의 grade 목록으로 count 조회
+        return seatRepository.countSeatsByStatusAndShowIdAndGradeIdList(SeatStatus.AVAILABLE, show.getId(), gradeIdList);
     }
 
 

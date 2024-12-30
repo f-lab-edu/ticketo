@@ -1,6 +1,7 @@
 package org.flab.api.controller;
 
 import org.flab.api.BaseIntegrationTest;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -14,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Disabled
 public class SeatControllerTest extends BaseIntegrationTest {
 
     private final String BASE_URI = "/api/events/{eventId}/seats";

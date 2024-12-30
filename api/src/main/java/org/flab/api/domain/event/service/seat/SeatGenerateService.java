@@ -1,12 +1,13 @@
 package org.flab.api.domain.event.service.seat;
 
 import lombok.RequiredArgsConstructor;
+import org.flab.api.domain.event.domain.event.Event;
+import org.flab.api.domain.event.domain.seat.Grade;
 import org.flab.api.domain.event.domain.seat.Seat;
 import org.flab.api.domain.event.domain.seat.SeatStatus;
 import org.flab.api.domain.event.domain.seat.Zone;
 import org.flab.api.domain.event.domain.show.Show;
 import org.flab.api.domain.event.repository.seat.BulkInsertRepository;
-import org.flab.api.domain.place.domain.Place;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class SeatGenerateService {
 
     private final BulkInsertRepository bulkInsertRepository;
     private final SeatCacheService seatCacheService;
+    private final ZoneService zoneService;
 
     /**
      * 회차 별 좌석 목록 데이터 생성
@@ -33,7 +35,7 @@ public class SeatGenerateService {
            return seatList;
         };
 
-        seatList = generateSeatListByPlace(show.getEvent().getPlace(), show);
+        seatList = generateSeatListByGrade(show.getEvent(), show);
         if(!seatList.isEmpty()) {
             bulkInsertRepository.saveAll(seatList);
             seatCacheService.evictPreparedSeatsForShow(show.getId());
@@ -42,26 +44,25 @@ public class SeatGenerateService {
     }
 
     /**
-     * 공연장 별 좌석 목록 데이터 생성
-     * @param place  공연장
+     * 좌석 목록 데이터 생성
+     * @param event  공연
      * @param show 공연 회차
      * @return 좌석 목록
      */
-    private List<Seat> generateSeatListByPlace(Place place, Show show) {
-        if(seatCacheService.preparedSeatsForShow(show.getId())) {
-            return new ArrayList<>();
-        };
-        return place.getZoneList().stream().flatMap(zone -> generateSeatListForZone(zone, show).stream()).toList();
-    }
-
-    private List<Seat> generateSeatListForZone(Zone zone, Show show) {
+    private List<Seat> generateSeatListByGrade(Event event, Show show) {
         if(seatCacheService.preparedSeatsForShow(show.getId())) {
             return new ArrayList<>();
         }
         List<Seat> seatList = new ArrayList<>();
-        for(long row = 0; row < zone.getRows(); row++) {
-            for(long col = 0; col < zone.getCols(); col++) {
-                seatList.add(new Seat(show, zone, row, col, SeatStatus.AVAILABLE, ZonedDateTime.now()));
+
+        // 등급(구역)에 따라 좌석 생성
+        for (Grade grade : event.getGradeList()) {
+            Zone zone = zoneService.getZonesByPlaceIdAndGradeId(event.getPlace().getId(), grade.getId());
+
+            for (long row = 0; row < zone.getRows(); row++) {
+                for (long col = 0; col < zone.getCols(); col++) {
+                    seatList.add(new Seat(show, zone, zone.getGrade(), row, col, SeatStatus.AVAILABLE, ZonedDateTime.now()));
+                }
             }
         }
         return seatList;

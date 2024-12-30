@@ -34,6 +34,10 @@ public class Seat {
     @JoinColumn(name = "zone_id")
     private Zone zone;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "grade_id")
+    private Grade grade;
+
     @Column(name="row_number")
     private Long rowNumber;
 
@@ -50,9 +54,10 @@ public class Seat {
     @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
 
-    public Seat(Show show, Zone zone, Long rowNumber, Long colNumber, SeatStatus status, ZonedDateTime createdAt) {
+    public Seat(Show show, Zone zone, Grade grade, Long rowNumber, Long colNumber, SeatStatus status, ZonedDateTime createdAt) {
         this.show = show;
         this.zone = zone;
+        this.grade = grade;
         this.rowNumber = rowNumber;
         this.colNumber = colNumber;
         this.status = status;

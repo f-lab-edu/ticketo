@@ -20,12 +20,14 @@ public class ZoneService {
     public Zone getZone(long zoneId) {
         return zoneRepository.findById(zoneId).orElseThrow(() -> new NotFoundException(ErrorCode.ZONE_NOT_FOUND));
     }
+
     /**
-     * 공연장 별 구역 조회
-     * @param placeId 공연장 아이디
-     * @return List 좌석 목록
+     * 공연 구역 조회
+     * @param PlaceId 공연장 아이디
+     * @param gradeId 공연 별 구역 등급 아이디
+     * @return
      */
-    public List<Zone> getZoneList(long placeId) {
-        return zoneRepository.getZonesByPlaceId(placeId);
+    public Zone getZonesByPlaceIdAndGradeId(Long PlaceId, Long gradeId) {
+        return zoneRepository.getZonesByPlaceIdAndGradeId(PlaceId, gradeId);
     }
 }

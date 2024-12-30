@@ -59,7 +59,8 @@ public class ShowController {
 
     private List<RemainSeatResponse> getRemainSeatResponseList(Long eventId, Show show) {
         List<Grade> gradeList = gradeService.getGradeList(eventId);
-        Map<GradeId, Long> seatCountMap = seatViewService.getSeatsCountMapByGradeId(show);
+        List<Long> gradeIdList = gradeList.stream().map(Grade::getId).toList();
+        Map<GradeId, Long> seatCountMap = seatViewService.getSeatsCountMapByGradeId(gradeIdList, show);
         return gradeList.stream()
                 .map(grade ->
                         new RemainSeatResponse(grade, seatCountMap.getOrDefault(new GradeId(grade.getId()), 0L)
