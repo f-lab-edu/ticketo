@@ -18,6 +18,7 @@ public class SeatResponse {
     public SeatResponse(Seat seat) {
         this.seatId = seat.getId();
         this.seatStatus = seat.getStatus();
-        this.seatCode = seat.getZone().getName() + "-" + seat.getRowNumber() + "-" + seat.getColNumber();
+        final String SEAT_CODE_FORMAT = "%s-%s-%s";
+        this.seatCode = String.format(SEAT_CODE_FORMAT, seat.getZone().getName(), seat.getRowNumber(), seat.getColNumber());
     }
 }
