@@ -14,6 +14,7 @@ public class SeatResponse {
     public SeatResponse(long seatId, SeatStatus seatStatus, String zoneName , long rowNumber, long colNumber) {
         this.seatId = seatId;
         this.seatStatus = seatStatus;
-        this.seatCode = zoneName + "-" + rowNumber + "-" + colNumber;
+        private static final String SEAT_CODE_FORMAT = "%s-%s-%s";
+        this.seatCode = String.format(SEAT_CODE_FORMAT, zoneName, rowNumber, colNumber);
     }
 }
